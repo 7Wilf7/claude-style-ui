@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Claude-style UI · 本地组件预览</title>
+  <link rel="stylesheet" href="claude-theme.css">
+  <link rel="stylesheet" href="claude-components.css">
+</head>
+<body data-claude-ui data-claude-palette="storybook" data-claude-theme="system" data-sidebar-collapsed="false" data-drawer-open="false">
+  <a class="clui-skip-link" href="#main">跳到主要内容</a>
+  <div class="clui-app">
+    <aside class="clui-sidebar" id="sidebar" aria-label="示例导航">
+      <div class="clui-sidebar-head">
+        <span class="clui-mark" aria-hidden="true">n</span>
+        <p class="clui-wordmark clui-sidebar-text">Notebook</p>
+        <button class="clui-btn clui-btn--ghost clui-btn--icon clui-drawer-close" id="drawer-close" aria-label="关闭导航">
+          <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <nav class="clui-nav" aria-label="页面内容">
+        <a class="clui-nav-link" href="#conversation" title="对话示例" aria-label="对话示例" aria-current="location">
+          <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 3V11.5A7.5 7.5 0 0 1 10.5 4h2A7.5 7.5 0 0 1 20 11.5Z"/><path d="M8 10h7M8 14h4"/></svg>
+          <span class="clui-sidebar-text">对话示例</span>
+        </a>
+        <a class="clui-nav-link" href="#components" title="界面组件" aria-label="界面组件">
+          <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg>
+          <span class="clui-sidebar-text">界面组件</span>
+        </a>
+        <a class="clui-nav-link" href="#projects" title="内容列表" aria-label="内容列表">
+          <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/></svg>
+          <span class="clui-sidebar-text">内容列表</span>
+        </a>
+        <a class="clui-nav-link" href="#states" title="页面状态" aria-label="页面状态">
+          <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h4l3-8 3 14 3-6h3"/></svg>
+          <span class="clui-sidebar-text">页面状态</span>
+        </a>
+      </nav>
+      <div class="clui-recents">
+        <p class="clui-sidebar-label">示例项目</p>
+        <div class="clui-recent-list">
+          <a class="clui-recent-link" href="#projects">周末徒步笔记</a>
+          <a class="clui-recent-link" href="#projects">把阅读变成日常</a>
+          <a class="clui-recent-link" href="#projects">个人网站的小想法</a>
+        </div>
+      </div>
+      <div class="clui-sidebar-foot">
+        <span class="clui-avatar" aria-hidden="true">L</span>
+        <div class="clui-account-copy clui-sidebar-text">本地工作台<small>界面预览 · 未连接 AI</small></div>
+      </div>
+    </aside>
+
+    <button class="clui-scrim" id="drawer-scrim" tabindex="-1" aria-label="关闭导航"></button>
+
+    <div class="clui-workspace" id="workspace">
+      <header class="clui-topbar">
+        <div class="clui-row">
+          <button class="clui-btn clui-btn--ghost clui-btn--icon" id="sidebar-toggle" aria-controls="sidebar" aria-expanded="true" aria-label="折叠侧栏" title="折叠侧栏">
+            <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M9 4v16"/></svg>
+          </button>
+          <span class="clui-topbar-title">交互工作台</span>
+        </div>
+        <div class="clui-toolbar">
+          <label class="clui-toolbar-select"><span>配色</span>
+            <select id="palette-select" aria-label="配色规范">
+              <option value="storybook">Storybook</option>
+              <option value="official">官方 MCP</option>
+            </select>
+          </label>
+          <label class="clui-toolbar-select"><span>主题</span>
+            <select id="theme-select" aria-label="界面主题">
+              <option value="system">跟随系统</option>
+              <option value="light">浅色</option>
+              <option value="dark">深色</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <main class="clui-main" id="main" tabindex="-1">
+        <section class="clui-section" id="conversation" aria-labelledby="page-title">
+          <div class="clui-intro">
+            <p class="clui-eyebrow">CLAUDE-STYLE UI / LOCAL PREVIEW</p>
+            <h1 class="clui-title" id="page-title">让思路慢慢展开。</h1>
+            <p class="clui-lead">暖中性色、舒适的阅读节奏，以及恰到好处的反馈。<br>这是可直接在本地打开的原创界面示例。</p>
+          </div>
+
+          <div class="clui-conversation" id="chat-log" role="log" aria-label="本地对话示例" aria-live="polite" aria-relevant="additions">
+            <article class="clui-message" aria-label="设计助理的示例内容">
+              <div class="clui-message-head">
+                <span class="clui-assistant-symbol" aria-hidden="true"><svg class="clui-icon" viewBox="0 0 24 24"><path d="m12 4 2.5 5.5L20 12l-5.5 2.5L12 20l-2.5-5.5L4 12l5.5-2.5Z"/></svg></span>
+                <strong>设计助理</strong><span class="clui-badge">示例内容</span>
+              </div>
+              <div class="clui-prose">
+                <p>好的工具，会给内容留出呼吸的空间。</p>
+                <p>你可以从这张工作台开始：让导航退到一旁，把文字放在视线中心，再用细边框和温和的层次区分操作。<strong>重点始终是你正在做的事。</strong></p>
+              </div>
+              <details class="clui-details">
+                <summary>
+                  <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M8.5 14.5a6 6 0 1 1 7 0c-1 .7-1.5 1.4-1.5 2.5h-4c0-1.1-.5-1.8-1.5-2.5Z"/></svg>
+                  查看设计思路<span class="clui-badge">静态示例</span>
+                  <svg class="clui-icon clui-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+                </summary>
+                <div class="clui-details-body"><p>先明确主要操作，再安排信息层级。保持正文易读，让色彩用于强调和状态反馈；输入框获得焦点时给出清楚的边界。这里展示的是预先写好的设计说明。</p></div>
+              </details>
+              <div class="clui-code">
+                <div class="clui-code-head"><span>CSS · 输入区域</span>
+                  <button class="clui-btn clui-btn--ghost clui-btn--small" id="copy-code" aria-label="复制 CSS 示例代码">
+                    <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/></svg>
+                    <span id="copy-label">复制代码</span>
+                  </button>
+                </div>
+                <pre tabindex="0" aria-label="CSS 示例，可选择并复制"><code id="code-text">[data-claude-ui] .clui-composer {
+  padding: 14px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-composer);
+  background: var(--clui-raised);
+}</code></pre>
+              </div>
+            </article>
+          </div>
+
+          <form class="clui-composer" id="composer">
+            <ul class="clui-attachments" id="attachments" aria-label="待加入的本地附件" hidden></ul>
+            <label class="clui-sr-only" for="message-input">输入本地演示消息</label>
+            <textarea id="message-input" rows="2" placeholder="从一个想法开始…" aria-describedby="composer-hint composer-note"></textarea>
+            <div class="clui-composer-footer">
+              <div class="clui-composer-actions">
+                <input type="file" id="file-input" multiple hidden>
+                <button class="clui-btn clui-btn--ghost clui-btn--icon" type="button" id="attach-button" aria-label="选择本地附件" title="选择本地附件">
+                  <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 12 6.8-6.8a3.3 3.3 0 0 1 4.7 4.6l-9.3 9.3a5 5 0 0 1-7.1-7.1l9-9M6.5 13.5l7.8-7.8"/></svg>
+                </button>
+                <span class="clui-badge clui-badge--accent">本地演示</span>
+              </div>
+              <div class="clui-composer-actions">
+                <p class="clui-composer-hint" id="composer-hint">Enter 提交 · Shift+Enter 换行</p>
+                <button class="clui-btn clui-btn--primary clui-btn--icon" id="send-button" type="submit" aria-label="加入本地对话示例" title="加入本地对话示例" disabled>
+                  <svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
+                </button>
+              </div>
+            </div>
+          </form>
+          <p class="clui-caption clui-caption--center" id="composer-note">不连接 AI 或服务器。消息只在页面内显示，附件仅展示文件名。</p>
+        </section>
+
+        <section class="clui-section" id="components" aria-labelledby="components-heading">
+          <div class="clui-section-heading"><div><h2 id="components-heading">同一种界面语言</h2><p>把克制的视觉层次带到卡片、表单和日常操作。</p></div><span class="clui-badge">可复用组件</span></div>
+          <div class="clui-grid">
+            <div class="clui-card">
+              <div class="clui-card-icon" aria-hidden="true"><svg class="clui-icon" viewBox="0 0 24 24"><path d="M5 5h5a3 3 0 0 1 3 3v12a3 3 0 0 0-3-3H5V5Zm14 0h-3a3 3 0 0 0-3 3v12a3 3 0 0 1 3-3h3V5Z"/></svg></div>
+              <h3 class="clui-card-title">从一个好问题开始</h3>
+              <p class="clui-card-copy">为周末徒步写一份轻量清单，把路线、天气、补给和返程放在同一页。</p>
+              <div class="clui-card-footer"><span class="clui-badge clui-badge--accent">写作灵感</span><button class="clui-btn" id="use-prompt">加入输入框<svg class="clui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div>
+              <div class="clui-palette" aria-label="当前配色示例">
+                <div><div class="clui-swatch clui-swatch--base"></div><div class="clui-swatch-label">基础</div></div>
+                <div><div class="clui-swatch clui-swatch--canvas"></div><div class="clui-swatch-label">画布</div></div>
+                <div><div class="clui-swatch clui-swatch--panel"></div><div class="clui-swatch-label">面板</div></div>
+                <div><div class="clui-swatch clui-swatch--accent"></div><div class="clui-swatch-label">强调</div></div>
+              </div>
+              <p class="clui-caption" id="palette-note">Storybook 社区配色 · 普通 Web 项目适配</p>
+            </div>
+            <div class="clui-card">
+              <h3 class="clui-card-title">项目设置</h3>
+              <p class="clui-card-copy">简单的字段，清楚的反馈。</p>
+              <form class="clui-form" id="settings-form" novalidate>
+                <div class="clui-field">
+                  <label class="clui-label" for="project-name">项目名称</label>
+                  <input class="clui-input" id="project-name" name="projectName" value="周末徒步笔记" required minlength="2" maxlength="40" aria-describedby="name-hint name-error">
+                  <p class="clui-field-hint" id="name-hint">2–40 个字符，中文或 English 都可以。</p>
+                  <p class="clui-field-error" id="name-error" role="alert" hidden></p>
+                </div>
+                <div class="clui-field">
+                  <label class="clui-label" for="writing-tone">写作语气</label>
+                  <select class="clui-input" id="writing-tone" name="tone"><option value="warm">清晰而温和</option><option value="concise">简洁直接</option><option value="exploratory">自由探索</option></select>
+                </div>
+                <label class="clui-switch-row">
+                  <span class="clui-switch-copy"><strong>显示「加入输入框」按钮</strong><small>下次打开时保留这个偏好</small></span>
+                  <span class="clui-switch"><input id="writing-hints" type="checkbox" role="switch" checked><span class="clui-switch-track" aria-hidden="true"></span></span>
+                </label>
+                <div class="clui-form-actions"><button class="clui-btn clui-btn--primary" type="submit">保存到当前浏览器</button><button class="clui-btn clui-btn--ghost" type="button" id="reset-settings">还原示例</button></div>
+                <p class="clui-form-result" id="settings-result" role="status" hidden></p>
+                <p class="clui-field-hint">只保存这三个示例设置，不保存对话或附件。</p>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="clui-section" id="projects" aria-labelledby="projects-heading">
+          <div class="clui-section-heading"><div><h2 id="projects-heading">正在展开的想法</h2><p>以下是用于展示布局的示例项目。</p></div>
+            <fieldset class="clui-segmented"><legend class="clui-sr-only">内容显示方式</legend><label><input type="radio" name="project-view" value="list" checked><span>列表</span></label><label><input type="radio" name="project-view" value="cards"><span>卡片</span></label></fieldset>
+          </div>
+          <div class="clui-table-wrap" id="project-list">
+            <table class="clui-table"><caption class="clui-sr-only">三个示例项目及其状态</caption><thead><tr><th scope="col">项目</th><th scope="col">状态</th><th class="clui-table-time" scope="col">最近整理</th></tr></thead><tbody>
+              <tr><td><span class="clui-table-title" id="table-project-name">周末徒步笔记</span><span class="clui-table-sub">路线、补给与沿途观察</span></td><td><span class="clui-badge clui-badge--accent">整理中</span></td><td class="clui-table-time"><span class="clui-table-sub">今天</span></td></tr>
+              <tr><td><span class="clui-table-title">把阅读变成日常</span><span class="clui-table-sub">每次留下一条值得记住的想法</span></td><td><span class="clui-badge">草稿</span></td><td class="clui-table-time"><span class="clui-table-sub">昨天</span></td></tr>
+              <tr><td><span class="clui-table-title">个人网站的小想法</span><span class="clui-table-sub">一句介绍，以及三个喜欢的作品</span></td><td><span class="clui-badge clui-badge--success">已整理</span></td><td class="clui-table-time"><span class="clui-table-sub">周一</span></td></tr>
+            </tbody></table>
+          </div>
+          <div class="clui-task-cards" id="project-cards" hidden>
+            <article class="clui-card"><span class="clui-badge clui-badge--accent">整理中</span><h3 class="clui-card-title" id="card-project-name">周末徒步笔记</h3><p class="clui-card-copy">路线、补给与沿途观察</p><p class="clui-caption">今天整理</p></article>
+            <article class="clui-card"><span class="clui-badge">草稿</span><h3 class="clui-card-title">把阅读变成日常</h3><p class="clui-card-copy">每次留下一条值得记住的想法</p><p class="clui-caption">昨天整理</p></article>
+            <article class="clui-card"><span class="clui-badge clui-badge--success">已整理</span><h3 class="clui-card-title">个人网站的小想法</h3><p class="clui-card-copy">一句介绍，以及三个喜欢的作品</p><p class="clui-caption">周一整理</p></article>
+          </div>
+        </section>
+
+        <section class="clui-section" id="states" aria-labelledby="states-heading">
+          <div class="clui-section-heading"><div><h2 id="states-heading">每一种状态，都有回应</h2><p>切换查看空白、加载、错误和有内容时的表现。</p></div></div>
+          <div class="clui-card clui-state-card">
+            <div class="clui-state-toolbar"><span class="clui-card-title">笔记面板</span><div class="clui-segmented" role="tablist" aria-label="演示页面状态" id="state-tabs">
+              <button type="button" role="tab" id="tab-empty" aria-controls="state-empty" aria-selected="true" tabindex="0" data-state="empty">空白</button>
+              <button type="button" role="tab" id="tab-loading" aria-controls="state-loading" aria-selected="false" tabindex="-1" data-state="loading">加载</button>
+              <button type="button" role="tab" id="tab-error" aria-controls="state-error" aria-selected="false" tabindex="-1" data-state="error">错误</button>
+              <button type="button" role="tab" id="tab-content" aria-controls="state-content" aria-selected="false" tabindex="-1" data-state="content">内容</button>
+            </div></div>
+            <div class="clui-state-body" role="tabpanel" id="state-empty" aria-labelledby="tab-empty" tabindex="0">
+              <span class="clui-state-icon" aria-hidden="true"><svg class="clui-icon" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v5h5M9 12h6M9 16h4"/></svg></span><h3>这里还没有笔记</h3><p>一个标题、一句话，就足够开始。</p><button class="clui-btn" type="button" id="create-note">加入一条示例</button>
+            </div>
+            <div class="clui-state-body" role="tabpanel" id="state-loading" aria-labelledby="tab-loading" tabindex="0" aria-busy="true" hidden>
+              <div class="clui-skeleton-group" aria-hidden="true"><div class="clui-skeleton"></div><div class="clui-skeleton"></div><div class="clui-skeleton"></div><div class="clui-skeleton"></div></div><p role="status">正在展示加载状态…</p>
+            </div>
+            <div class="clui-state-body" role="tabpanel" id="state-error" aria-labelledby="tab-error" tabindex="0" hidden>
+              <span class="clui-state-icon clui-state-icon--error" aria-hidden="true"><svg class="clui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 17h.01"/></svg></span><h3>内容暂时无法显示</h3><p>这是模拟错误。你可以试试重试按钮，观察状态如何变化。</p><button class="clui-btn" type="button" id="retry-state">演示重试</button>
+            </div>
+            <div class="clui-state-body" role="tabpanel" id="state-content" aria-labelledby="tab-content" tabindex="0" hidden>
+              <span class="clui-state-icon clui-state-icon--success" aria-hidden="true"><svg class="clui-icon" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><h3>沿途值得记住的小事</h3><p>清晨的风、树荫里的停留，还有走完之后的一杯热茶。<br>这是一条预先写好的示例笔记。</p><span class="clui-badge">本地样例</span>
+            </div>
+          </div>
+        </section>
+
+        <footer class="clui-footer"><p>原创示例 · 系统字体 · 零网络依赖<br>参考 Claude 的界面语言，适配普通 Web 项目。<br><a href="interaction-preview.html">查看进阶交互实验 →</a></p><p id="profile-footer">当前：Storybook 社区配色</p></footer>
+      </main>
+    </div>
+  </div>
+  <div class="clui-toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+  <script>
+    (() => {
+      'use strict';
+      // This preview is deliberately self-contained: no requests, SDKs or AI calls.
+      const root = document.querySelector('[data-claude-ui]');
+      const $ = (selector) => root.querySelector(selector);
+      const $$ = (selector) => Array.from(root.querySelectorAll(selector));
+      const storageKey = 'claude-style-ui-preview-settings-v1';
+      const mobile = window.matchMedia('(max-width: 760px)');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const sidebar = $('#sidebar');
+      const workspace = $('#workspace');
+      const sidebarToggle = $('#sidebar-toggle');
+      const textarea = $('#message-input');
+      const sendButton = $('#send-button');
+      const attachmentList = $('#attachments');
+      const fileInput = $('#file-input');
+      let attachments = [];
+      let nextAttachmentId = 1;
+      let composing = false;
+      let compositionEndedAt = -Infinity;
+      let toastTimer;
+      let copyTimer;
+      let stateTimer;
+
+      function announce(message) {
+        const toast = $('#toast');
+        clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.hidden = false;
+        toastTimer = setTimeout(() => { toast.hidden = true; }, 3600);
+      }
+
+      function updateSidebarControl() {
+        const expanded = mobile.matches
+          ? root.dataset.drawerOpen === 'true'
+          : root.dataset.sidebarCollapsed !== 'true';
+        sidebarToggle.setAttribute('aria-expanded', String(expanded));
+        const label = mobile.matches ? '打开导航' : expanded ? '折叠侧栏' : '展开侧栏';
+        sidebarToggle.setAttribute('aria-label', label);
+        sidebarToggle.title = label;
+      }
+
+      function closeDrawer(restoreFocus = true) {
+        root.dataset.drawerOpen = 'false';
+        sidebar.removeAttribute('role');
+        sidebar.removeAttribute('aria-modal');
+        sidebar.inert = mobile.matches;
+        workspace.inert = false;
+        updateSidebarControl();
+        if (restoreFocus) sidebarToggle.focus();
+      }
+
+      sidebarToggle.addEventListener('click', () => {
+        if (mobile.matches) {
+          root.dataset.drawerOpen = 'true';
+          sidebar.inert = false;
+          sidebar.setAttribute('role', 'dialog');
+          sidebar.setAttribute('aria-modal', 'true');
+          workspace.inert = true;
+          updateSidebarControl();
+          requestAnimationFrame(() => {
+            if (mobile.matches && root.dataset.drawerOpen === 'true') {
+              $('#drawer-close').focus({ preventScroll: true });
+            }
+          });
+        } else {
+          root.dataset.sidebarCollapsed = String(root.dataset.sidebarCollapsed !== 'true');
+          updateSidebarControl();
+        }
+      });
+      $('#drawer-close').addEventListener('click', () => closeDrawer());
+      $('#drawer-scrim').addEventListener('click', () => closeDrawer());
+      document.addEventListener('keydown', (event) => {
+        if (!mobile.matches || root.dataset.drawerOpen !== 'true') return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeDrawer();
+        }
+        if (event.key === 'Tab') {
+          const focusable = Array.from(sidebar.querySelectorAll('button, a[href]'))
+            .filter((element) => element.getClientRects().length && !element.disabled);
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault(); last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault(); first.focus();
+          }
+        }
+      });
+      mobile.addEventListener('change', () => {
+        // Crossing to desktop must always release the modal's inert state.
+        const wasOpen = root.dataset.drawerOpen === 'true';
+        closeDrawer(false);
+        if (mobile.matches && sidebar.contains(document.activeElement)) sidebarToggle.focus();
+        else if (wasOpen) sidebarToggle.focus();
+      });
+      updateSidebarControl();
+      sidebar.inert = mobile.matches;
+      $$('.clui-sidebar a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          const target = $(link.getAttribute('href'));
+          if (!target) return;
+          event.preventDefault();
+          $$('.clui-nav-link').forEach((item) => item.removeAttribute('aria-current'));
+          const activeLink = $(`.clui-nav-link[href="${link.getAttribute('href')}"]`);
+          if (activeLink) activeLink.setAttribute('aria-current', 'location');
+          if (mobile.matches) closeDrawer(false);
+          target.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+          // Focus the heading so keyboard users leave the now-hidden mobile drawer.
+          const heading = target.querySelector('h1, h2');
+          if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
+        });
+      });
+
+      $('#theme-select').addEventListener('change', (event) => {
+        root.dataset.claudeTheme = event.target.value;
+        announce(`主题已切换为${event.target.selectedOptions[0].textContent}。`);
+      });
+      $('#palette-select').addEventListener('change', (event) => {
+        const official = event.target.value === 'official';
+        root.dataset.claudePalette = event.target.value;
+        $('#palette-note').textContent = official
+          ? '官方 MCP Apps 配色 · 普通 Web 项目适配'
+          : 'Storybook 社区配色 · 普通 Web 项目适配';
+        $('#profile-footer').textContent = official ? '当前：官方 MCP Apps 配色' : '当前：Storybook 社区配色';
+        announce(official ? '已切换为官方 MCP 配色规范。' : '已切换为 Storybook 社区配色。');
+      });
+
+      async function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          try { await navigator.clipboard.writeText(text); return true; } catch (_) { /* local file fallback below */ }
+        }
+        const active = document.activeElement;
+        const helper = document.createElement('textarea');
+        helper.className = 'clui-sr-only';
+        helper.setAttribute('readonly', '');
+        helper.setAttribute('aria-label', '临时复制区域');
+        helper.value = text;
+        root.append(helper);
+        helper.select();
+        let copied = false;
+        try { copied = document.execCommand('copy') === true; } catch (_) { copied = false; }
+        helper.remove();
+        if (active && active.focus) active.focus({ preventScroll: true });
+        return copied;
+      }
+      $('#copy-code').addEventListener('click', async () => {
+        const button = $('#copy-code');
+        clearTimeout(copyTimer);
+        button.disabled = true;
+        const copied = await copyText($('#code-text').textContent);
+        button.disabled = false;
+        $('#copy-label').textContent = copied ? '已复制' : '复制代码';
+        announce(copied ? 'CSS 示例已复制。' : '复制未完成，请选择代码后手动复制。');
+        if (copied) copyTimer = setTimeout(() => { $('#copy-label').textContent = '复制代码'; }, 2000);
+      });
+
+      function updateComposer() {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 220)}px`;
+        sendButton.disabled = !textarea.value.trim() && attachments.length === 0;
+      }
+      function renderAttachments() {
+        attachmentList.replaceChildren();
+        attachmentList.hidden = attachments.length === 0;
+        attachments.forEach((attachment) => {
+          const item = document.createElement('li');
+          item.className = 'clui-attachment';
+          const name = document.createElement('span');
+          name.className = 'clui-attachment-name';
+          name.textContent = attachment.name;
+          name.title = attachment.name;
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'clui-attachment-remove';
+          remove.setAttribute('aria-label', `移除附件 ${attachment.name}`);
+          remove.textContent = '×';
+          remove.addEventListener('click', () => {
+            attachments = attachments.filter((file) => file.id !== attachment.id);
+            renderAttachments();
+            textarea.focus();
+            announce(`已移除 ${attachment.name}。`);
+          });
+          item.append(name, remove);
+          attachmentList.append(item);
+        });
+        updateComposer();
+      }
+      $('#attach-button').addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', () => {
+        const files = Array.from(fileInput.files || []);
+        files.forEach((file) => attachments.push({ id: nextAttachmentId++, name: file.name }));
+        fileInput.value = '';
+        renderAttachments();
+        if (files.length) announce(`已选择 ${files.length} 个本地文件，仅展示文件名。`);
+      });
+      textarea.addEventListener('input', updateComposer);
+      textarea.addEventListener('compositionstart', () => { composing = true; });
+      textarea.addEventListener('compositionend', () => {
+        composing = false;
+        compositionEndedAt = performance.now();
+        updateComposer();
+      });
+      textarea.addEventListener('keydown', (event) => {
+        // keyCode 229 covers older IME behavior; the brief guard also covers
+        // browsers that end composition immediately before the same Enter.
+        if (event.key !== 'Enter' || event.shiftKey || event.isComposing || composing || event.keyCode === 229) return;
+        if (performance.now() - compositionEndedAt < 80) return;
+        event.preventDefault();
+        if (!sendButton.disabled) $('#composer').requestSubmit();
+      });
+      $('#composer').addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (composing || sendButton.disabled) return;
+        const text = textarea.value.trim();
+        const message = document.createElement('article');
+        message.className = 'clui-message clui-message--user';
+        message.setAttribute('aria-label', '你的本地示例消息');
+        const head = document.createElement('div');
+        head.className = 'clui-message-head';
+        head.textContent = '你 · 仅本地';
+        message.append(head);
+        if (text) {
+          const paragraph = document.createElement('p');
+          paragraph.className = 'clui-message-text';
+          paragraph.textContent = text;
+          message.append(paragraph);
+        }
+        if (attachments.length) {
+          const list = document.createElement('ul');
+          list.className = 'clui-local-files';
+          attachments.forEach((file) => {
+            const item = document.createElement('li');
+            item.textContent = `${file.name}（未上传）`;
+            list.append(item);
+          });
+          message.append(list);
+        }
+        $('#chat-log').append(message);
+        textarea.value = '';
+        attachments = [];
+        renderAttachments();
+        textarea.focus();
+        announce('已加入本地对话示例，未发送到服务器。');
+      });
+      $('#use-prompt').addEventListener('click', () => {
+        const prompt = '帮我为周末徒步整理一份轻量清单，包含路线、天气、补给和返程。';
+        textarea.value = textarea.value.trim() ? `${textarea.value}\n${prompt}` : prompt;
+        updateComposer();
+        textarea.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center' });
+        textarea.focus({ preventScroll: true });
+        announce('示例问题已加入输入框，你可以继续修改。');
+      });
+      updateComposer();
+
+      const projectName = $('#project-name');
+      const writingTone = $('#writing-tone');
+      const writingHints = $('#writing-hints');
+      function applySettings(settings) {
+        projectName.value = settings.projectName;
+        writingTone.value = settings.tone;
+        writingHints.checked = settings.hints;
+        $('#table-project-name').textContent = settings.projectName;
+        $('#card-project-name').textContent = settings.projectName;
+        $('#use-prompt').hidden = !settings.hints;
+      }
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+        if (saved && typeof saved.projectName === 'string' && saved.projectName.trim().length >= 2
+          && saved.projectName.length <= 40 && ['warm', 'concise', 'exploratory'].includes(saved.tone)
+          && typeof saved.hints === 'boolean') applySettings(saved);
+      } catch (_) { /* Storage may be unavailable for local files. Defaults remain usable. */ }
+      $('#settings-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = projectName.value.trim();
+        const invalid = name.length < 2 || name.length > 40;
+        projectName.setAttribute('aria-invalid', String(invalid));
+        $('#name-error').hidden = !invalid;
+        $('#name-error').textContent = invalid ? '请输入 2–40 个字符的项目名称。' : '';
+        if (invalid) { projectName.focus(); return; }
+        const settings = { projectName: name, tone: writingTone.value, hints: writingHints.checked };
+        applySettings(settings);
+        let persisted = false;
+        try { localStorage.setItem(storageKey, JSON.stringify(settings)); persisted = true; } catch (_) { /* report below */ }
+        const result = $('#settings-result');
+        result.hidden = false;
+        result.dataset.persisted = String(persisted);
+        result.textContent = persisted
+          ? `“${name}”的设置已保存在当前浏览器；内容列表已更新。`
+          : '设置已应用到页面。浏览器未允许保存，刷新后会还原。';
+      });
+      projectName.addEventListener('input', () => {
+        if (projectName.value.trim().length >= 2) {
+          projectName.removeAttribute('aria-invalid');
+          $('#name-error').hidden = true;
+        }
+      });
+      $('#reset-settings').addEventListener('click', () => {
+        applySettings({ projectName: '周末徒步笔记', tone: 'warm', hints: true });
+        projectName.removeAttribute('aria-invalid');
+        $('#name-error').hidden = true;
+        $('#settings-result').hidden = true;
+        let cleared = true;
+        try { localStorage.removeItem(storageKey); } catch (_) { cleared = false; }
+        announce(cleared ? '已还原示例设置。' : '页面已还原，但浏览器未允许清除已存设置。');
+      });
+
+      $$('input[name="project-view"]').forEach((radio) => radio.addEventListener('change', () => {
+        const cards = radio.value === 'cards';
+        $('#project-list').hidden = cards;
+        $('#project-cards').hidden = !cards;
+      }));
+
+      const tabs = $$('#state-tabs [role="tab"]');
+      function showState(state, focusPanel = false) {
+        clearTimeout(stateTimer);
+        tabs.forEach((tab) => {
+          const selected = tab.dataset.state === state;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+          $(`#state-${tab.dataset.state}`).hidden = !selected;
+        });
+        if (focusPanel) $(`#state-${state}`).focus({ preventScroll: true });
+      }
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => showState(tab.dataset.state));
+        tab.addEventListener('keydown', (event) => {
+          let next;
+          if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+          else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+          else if (event.key === 'Home') next = 0;
+          else if (event.key === 'End') next = tabs.length - 1;
+          else return;
+          event.preventDefault();
+          tabs[next].focus();
+          showState(tabs[next].dataset.state);
+        });
+      });
+      $('#create-note').addEventListener('click', () => {
+        showState('content', true);
+        announce('已展示一条预先写好的示例笔记。');
+      });
+      $('#retry-state').addEventListener('click', () => {
+        showState('loading', true);
+        stateTimer = setTimeout(() => {
+          // Do not take focus back if the user has moved to another control.
+          const focusStayed = $('#state-loading').contains(document.activeElement);
+          showState('content', focusStayed);
+          announce('本地重试演示结束，已展示示例笔记。');
+        }, 700);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+/*
+ * Claude-style UI — original, framework-independent theme.
+ * Scope: place data-claude-ui on one container (or on body for a full-page app).
+ * Profiles: data-claude-palette="storybook" (default) | "official".
+ * Theme: data-claude-theme="system" (default) | "light" | "dark".
+ *
+ * Provenance: Storybook surfaces, clay accents, radius ladder and motion timings
+ * follow the user-provided community reference. The official profile's surfaces,
+ * text and radius ladder follow Anthropic's MCP Apps design guidance. These are
+ * two deliberately separate profiles, not a claim of official Claude fidelity.
+ * Layout, system fonts, type scale, spacing, shadows, readable action shades,
+ * semantic states and the 20px composer are practical adaptations for web apps.
+ * No font downloads, global resets, external imports or framework dependencies.
+ */
+
+[data-claude-ui] {
+  color-scheme: light;
+  --clui-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --clui-font-serif: Georgia, "Times New Roman", "Songti SC", SimSun, serif;
+  --clui-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --clui-text-xs: 0.75rem;
+  --clui-text-sm: 0.8125rem;
+  --clui-text-base: 0.9375rem;
+  --clui-text-lg: 1.0625rem;
+  --clui-text-title: clamp(1.75rem, 3.5vw, 2.375rem);
+  --clui-leading-ui: 1.5;
+  --clui-leading-prose: 1.85;
+  --clui-space-1: 4px;
+  --clui-space-2: 8px;
+  --clui-space-3: 12px;
+  --clui-space-4: 16px;
+  --clui-space-5: 20px;
+  --clui-space-6: 24px;
+  --clui-space-8: 32px;
+  --clui-space-10: 40px;
+  --clui-space-12: 48px;
+  --clui-control-xs: 24px;
+  --clui-control-sm: 28px;
+  --clui-control-md: 32px;
+  --clui-control-lg: 40px;
+  --clui-touch-target: 44px;
+  --clui-radius-xs: 5px;
+  --clui-radius-sm: 6px;
+  --clui-radius-md: 8px;
+  --clui-radius-lg: 10px;
+  --clui-radius-xl: 14px;
+  /* Community source shape roles, kept distinct from the general card scale. */
+  --clui-radius-dialog: 16px;
+  --clui-radius-message: 18px;
+  --clui-radius-composer: 20px;
+  --clui-radius-full: 999px;
+  --clui-hairline: 1px;
+  --clui-motion-instant: 60ms;
+  --clui-motion-fast: 120ms;
+  --clui-motion-base: 200ms;
+  --clui-motion-slow: 300ms;
+  --clui-motion-enter: 450ms;
+  --clui-ease-out: cubic-bezier(.165, .84, .44, 1);
+  --clui-ease-snap: cubic-bezier(.32, .72, 0, 1);
+  --clui-sidebar-width: 236px;
+  --clui-content-width: 1064px;
+  --clui-prose-width: 68ch;
+
+  /* Storybook light profile. Extra semantic colors are practical adaptations. */
+  --clui-base: #f5f5f3;
+  --clui-canvas: #fcfcfb;
+  --clui-panel: #ffffff;
+  --clui-raised: #ffffff;
+  --clui-text: #20201e;
+  --clui-text-secondary: #5d5a55;
+  --clui-text-muted: #6b6863;
+  --clui-border: #dedcd6;
+  --clui-border-strong: #a4a19b;
+  /* Interactive outlines, separately readable from decorative dividers. */
+  --clui-control-border: #858178;
+  --clui-hover: #eeede9;
+  --clui-selected: #e8e5df;
+  --clui-accent: #d97757;
+  --clui-accent-hover: #cc5a36;
+  --clui-accent-soft: #fbf3ef;
+  --clui-accent-text: #9b4127;
+  /* The reference clay is retained as an accent; white text needs a darker action. */
+  --clui-action: #a84328;
+  --clui-action-hover: #8d351f;
+  --clui-on-action: #ffffff;
+  --clui-success: #336248;
+  --clui-success-soft: #edf5ef;
+  --clui-warning: #7d5a18;
+  --clui-warning-soft: #fcf4e3;
+  --clui-danger: #a3332d;
+  --clui-danger-soft: #fbefed;
+  --clui-code-bg: #f5f5f3;
+  --clui-focus: #a84328;
+  --clui-scrim: rgb(20 20 19 / 40%);
+  --clui-shadow-sm: 0 1px 2px rgb(20 20 19 / 4%);
+  --clui-shadow-raised: 0 3px 8px rgb(20 20 19 / 3%), 0 16px 40px rgb(20 20 19 / 5%);
+
+  margin: 0;
+  color: var(--clui-text);
+  background: var(--clui-canvas);
+  font-family: var(--clui-font-sans);
+  font-size: var(--clui-text-base);
+  line-height: var(--clui-leading-ui);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  accent-color: var(--clui-action);
+}
+
+/* Optional decorative strokes only. Controls and focus keep their full width. */
+@media (min-resolution: 2dppx) {
+  [data-claude-ui] { --clui-hairline: 0.5px; }
+}
+
+@media (min-resolution: 3dppx) {
+  [data-claude-ui] { --clui-hairline: calc(1px / 3); }
+}
+
+[data-claude-ui][data-claude-palette="official"] {
+  /* Official MCP Apps light profile; semantic/action extensions remain adaptations. */
+  --clui-base: #f5f4ed;
+  --clui-canvas: #faf9f5;
+  --clui-panel: #ffffff;
+  --clui-raised: #ffffff;
+  --clui-text: #141413;
+  --clui-text-secondary: #3d3d3a;
+  --clui-text-muted: #73726c;
+  --clui-border: #deddd5;
+  --clui-border-strong: #a8a69d;
+  --clui-hover: #eeede6;
+  --clui-selected: #e9e7de;
+  --clui-code-bg: #f5f4ed;
+  --clui-radius-xs: 4px;
+  --clui-radius-sm: 6px;
+  --clui-radius-md: 8px;
+  --clui-radius-lg: 10px;
+  --clui-radius-xl: 12px;
+}
+
+[data-claude-ui][data-claude-theme="dark"] {
+  color-scheme: dark;
+  --clui-base: #0b0b0a;
+  --clui-canvas: #151515;
+  --clui-panel: #1a1a19;
+  --clui-raised: #20201e;
+  --clui-text: #f0f0ee;
+  --clui-text-secondary: #d1cec6;
+  --clui-text-muted: #b5b1a9;
+  --clui-border: #3b3b37;
+  --clui-border-strong: #74716a;
+  --clui-control-border: #a4a19b;
+  --clui-hover: #282826;
+  --clui-selected: #34332f;
+  --clui-accent-soft: #35251f;
+  --clui-accent-text: #e5a28d;
+  --clui-action: #e4a088;
+  --clui-action-hover: #efb49e;
+  --clui-on-action: #211610;
+  --clui-success: #9bd2af;
+  --clui-success-soft: #1c2b22;
+  --clui-warning: #e1c581;
+  --clui-warning-soft: #302819;
+  --clui-danger: #efaaa2;
+  --clui-danger-soft: #342220;
+  --clui-code-bg: #111110;
+  --clui-focus: #e4a088;
+  --clui-scrim: rgb(0 0 0 / 65%);
+  --clui-shadow-sm: 0 1px 2px rgb(0 0 0 / 15%);
+  --clui-shadow-raised: 0 3px 8px rgb(0 0 0 / 10%), 0 16px 40px rgb(0 0 0 / 20%);
+}
+
+[data-claude-ui][data-claude-palette="official"][data-claude-theme="dark"] {
+  /* Official primary / secondary / tertiary surfaces map to panel / base / canvas. */
+  --clui-base: #262624;
+  --clui-canvas: #141413;
+  --clui-panel: #30302e;
+  --clui-raised: #30302e;
+  --clui-text: #faf9f5;
+  --clui-text-secondary: #c2c0b6;
+  --clui-text-muted: #9c9a92;
+  --clui-border: #4a4943;
+  --clui-border-strong: #76746b;
+  --clui-control-border: #a4a19b;
+  --clui-hover: #3b3b37;
+  --clui-selected: #44433d;
+  --clui-code-bg: #262624;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-claude-ui]:not([data-claude-theme="light"]):not([data-claude-theme="dark"]) {
+    color-scheme: dark;
+    --clui-base: #0b0b0a;
+    --clui-canvas: #151515;
+    --clui-panel: #1a1a19;
+    --clui-raised: #20201e;
+    --clui-text: #f0f0ee;
+    --clui-text-secondary: #d1cec6;
+    --clui-text-muted: #b5b1a9;
+    --clui-border: #3b3b37;
+    --clui-border-strong: #74716a;
+    --clui-control-border: #a4a19b;
+    --clui-hover: #282826;
+    --clui-selected: #34332f;
+    --clui-accent-soft: #35251f;
+    --clui-accent-text: #e5a28d;
+    --clui-action: #e4a088;
+    --clui-action-hover: #efb49e;
+    --clui-on-action: #211610;
+    --clui-success: #9bd2af;
+    --clui-success-soft: #1c2b22;
+    --clui-warning: #e1c581;
+    --clui-warning-soft: #302819;
+    --clui-danger: #efaaa2;
+    --clui-danger-soft: #342220;
+    --clui-code-bg: #111110;
+    --clui-focus: #e4a088;
+    --clui-scrim: rgb(0 0 0 / 65%);
+    --clui-shadow-sm: 0 1px 2px rgb(0 0 0 / 15%);
+    --clui-shadow-raised: 0 3px 8px rgb(0 0 0 / 10%), 0 16px 40px rgb(0 0 0 / 20%);
+  }
+
+  [data-claude-ui][data-claude-palette="official"]:not([data-claude-theme="light"]):not([data-claude-theme="dark"]) {
+    --clui-base: #262624;
+    --clui-canvas: #141413;
+    --clui-panel: #30302e;
+    --clui-raised: #30302e;
+    --clui-text: #faf9f5;
+    --clui-text-secondary: #c2c0b6;
+    --clui-text-muted: #9c9a92;
+    --clui-border: #4a4943;
+    --clui-border-strong: #76746b;
+    --clui-control-border: #a4a19b;
+    --clui-hover: #3b3b37;
+    --clui-selected: #44433d;
+    --clui-code-bg: #262624;
+  }
+}
+
+[data-claude-ui],
+[data-claude-ui] *,
+[data-claude-ui] *::before,
+[data-claude-ui] *::after {
+  box-sizing: border-box;
+}
+
+[data-claude-ui] :where(button, input, select, textarea) {
+  font: inherit;
+  color: inherit;
+}
+
+[data-claude-ui] :where(button, a, input, select, textarea, summary) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+[data-claude-ui] :where(button, a, summary) {
+  touch-action: manipulation;
+}
+
+[data-claude-ui] :where(button, input, select, textarea, a, summary):focus-visible {
+  outline: 2px solid var(--clui-focus);
+  outline-offset: 3px;
+}
+
+[data-claude-ui] :where(button) {
+  cursor: pointer;
+}
+
+[data-claude-ui] :where(button):disabled {
+  cursor: not-allowed;
+}
+
+[data-claude-ui] [hidden] {
+  display: none !important;
+}
+
+[data-claude-ui] ::selection {
+  color: var(--clui-text);
+  background: var(--clui-selected);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-claude-ui] *,
+  [data-claude-ui] *::before,
+  [data-claude-ui] *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

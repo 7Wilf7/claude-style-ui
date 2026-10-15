@@ -1,0 +1,1317 @@
+/* Original components. All selectors are isolated under [data-claude-ui].
+ * Widths, breakpoints, spacing, sidebar behavior and responsive adaptations are
+ * implementation choices, rather than values certified by Anthropic.
+ */
+
+[data-claude-ui] .clui-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+[data-claude-ui] .clui-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+[data-claude-ui] .clui-skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 12px;
+  left: 12px;
+  padding: 10px 16px;
+  color: var(--clui-on-action);
+  background: var(--clui-action);
+  border-radius: var(--clui-radius-md);
+  transform: translateY(-180%);
+}
+
+[data-claude-ui] .clui-skip-link:focus {
+  transform: translateY(0);
+}
+
+[data-claude-ui] .clui-app {
+  display: grid;
+  grid-template-columns: var(--clui-sidebar-width) minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+[data-claude-ui][data-sidebar-collapsed="true"] {
+  --clui-sidebar-width: 76px;
+}
+
+[data-claude-ui] .clui-sidebar {
+  position: sticky;
+  z-index: 40;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100vh;
+  height: 100dvh;
+  min-width: 0;
+  padding: 20px 14px 16px;
+  background: var(--clui-base);
+  border-right: 1px solid var(--clui-border);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+[data-claude-ui] .clui-sidebar-head,
+[data-claude-ui] .clui-sidebar-foot,
+[data-claude-ui] .clui-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+[data-claude-ui] .clui-sidebar-head {
+  min-height: 32px;
+  padding-inline: 6px;
+}
+
+[data-claude-ui] .clui-wordmark {
+  margin: 0;
+  font-family: var(--clui-font-serif);
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+[data-claude-ui] .clui-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  color: var(--clui-accent-text);
+  background: var(--clui-accent-soft);
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-lg);
+  font-family: var(--clui-font-serif);
+  font-size: 21px;
+  font-style: italic;
+}
+
+[data-claude-ui] .clui-nav,
+[data-claude-ui] .clui-recent-list {
+  display: grid;
+  gap: 4px;
+}
+
+[data-claude-ui] .clui-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 9px 12px;
+  border-radius: var(--clui-radius-md);
+  color: var(--clui-text-secondary);
+  text-decoration: none;
+  font-size: var(--clui-text-sm);
+  white-space: nowrap;
+  transition: background var(--clui-motion-fast) ease-out;
+}
+
+[data-claude-ui] .clui-nav-link[aria-current="location"] {
+  color: var(--clui-text);
+  background: var(--clui-selected);
+}
+
+[data-claude-ui] .clui-sidebar-label {
+  margin: 0 12px 10px;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-recent-link {
+  display: block;
+  padding: 8px 12px;
+  border-radius: var(--clui-radius-md);
+  color: var(--clui-text-secondary);
+  text-decoration: none;
+  font-size: var(--clui-text-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-claude-ui] .clui-sidebar-foot {
+  margin-top: auto;
+  padding: 16px 6px 0;
+  border-top: 1px solid var(--clui-border);
+}
+
+[data-claude-ui] .clui-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  border-radius: var(--clui-radius-full);
+  color: var(--clui-text-secondary);
+  background: var(--clui-selected);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-account-copy {
+  min-width: 0;
+  font-size: var(--clui-text-sm);
+}
+
+[data-claude-ui] .clui-account-copy small {
+  display: block;
+  color: var(--clui-text-muted);
+  font-size: 11px;
+}
+
+[data-claude-ui][data-sidebar-collapsed="true"] .clui-sidebar-text,
+[data-claude-ui][data-sidebar-collapsed="true"] .clui-recents {
+  display: none;
+}
+
+[data-claude-ui][data-sidebar-collapsed="true"] .clui-nav-link {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+[data-claude-ui] .clui-workspace {
+  min-width: 0;
+}
+
+[data-claude-ui] .clui-topbar {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 68px;
+  padding: 12px 24px;
+  background: var(--clui-canvas);
+  border-bottom: 1px solid var(--clui-border);
+}
+
+[data-claude-ui] .clui-topbar-title {
+  font-size: var(--clui-text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+[data-claude-ui] .clui-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+[data-claude-ui] .clui-toolbar-select {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-toolbar-select select {
+  min-width: 0;
+  min-height: 32px;
+  max-width: 142px;
+  padding: 4px 24px 4px 8px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-sm);
+  color: var(--clui-text-secondary);
+  background: var(--clui-panel);
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-main {
+  width: 100%;
+  max-width: var(--clui-content-width);
+  margin-inline: auto;
+  padding: 56px 48px 24px;
+}
+
+[data-claude-ui] .clui-section {
+  scroll-margin-top: 100px;
+}
+
+[data-claude-ui] .clui-section + .clui-section {
+  margin-top: 56px;
+}
+
+[data-claude-ui] .clui-intro {
+  margin-bottom: 32px;
+}
+
+[data-claude-ui] .clui-eyebrow {
+  margin: 0 0 12px;
+  color: var(--clui-text-muted);
+  font-family: var(--clui-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  line-height: 1.6;
+}
+
+[data-claude-ui] .clui-title {
+  margin: 0 0 14px;
+  font-family: var(--clui-font-serif);
+  font-size: var(--clui-text-title);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+[data-claude-ui] .clui-lead {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--clui-text-secondary);
+  font-size: var(--clui-text-base);
+  line-height: var(--clui-leading-prose);
+}
+
+[data-claude-ui] .clui-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+[data-claude-ui] .clui-section-heading h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+[data-claude-ui] .clui-section-heading p {
+  margin: 5px 0 0;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-sm);
+}
+
+[data-claude-ui] .clui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: var(--clui-control-lg);
+  padding: 8px 13px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-md);
+  color: var(--clui-text);
+  background: var(--clui-panel);
+  box-shadow: var(--clui-shadow-sm);
+  text-decoration: none;
+  font-size: var(--clui-text-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  transition: background var(--clui-motion-fast) ease-out, border-color var(--clui-motion-fast) ease-out;
+}
+
+[data-claude-ui] .clui-btn--primary {
+  color: var(--clui-on-action);
+  background: var(--clui-action);
+  border-color: transparent;
+}
+
+[data-claude-ui] .clui-btn--ghost {
+  color: var(--clui-text-secondary);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+[data-claude-ui] .clui-btn--small {
+  min-height: var(--clui-control-md);
+  padding: 5px 9px;
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-btn--icon {
+  width: var(--clui-control-lg);
+  flex: 0 0 var(--clui-control-lg);
+  padding: 8px;
+}
+
+[data-claude-ui] .clui-btn:disabled {
+  color: var(--clui-text-muted);
+  background: var(--clui-base);
+  border-color: var(--clui-border);
+  box-shadow: none;
+}
+
+[data-claude-ui] .clui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 2px 7px;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-sm);
+  color: var(--clui-text-secondary);
+  background: var(--clui-base);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+[data-claude-ui] .clui-badge--accent {
+  color: var(--clui-accent-text);
+  background: var(--clui-accent-soft);
+  border-color: transparent;
+}
+
+[data-claude-ui] .clui-badge--success {
+  color: var(--clui-success);
+  background: var(--clui-success-soft);
+  border-color: transparent;
+}
+
+[data-claude-ui] .clui-conversation {
+  display: grid;
+  gap: 28px;
+  padding: 0 4px;
+}
+
+[data-claude-ui] .clui-message {
+  min-width: 0;
+}
+
+[data-claude-ui] .clui-message-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: var(--clui-text-sm);
+}
+
+[data-claude-ui] .clui-message-head strong {
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-assistant-symbol {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--clui-radius-sm);
+  color: var(--clui-accent-text);
+  background: var(--clui-accent-soft);
+}
+
+[data-claude-ui] .clui-prose {
+  max-width: var(--clui-prose-width);
+  font-size: var(--clui-text-base);
+  line-height: var(--clui-leading-prose);
+  overflow-wrap: anywhere;
+}
+
+[data-claude-ui] .clui-prose p {
+  margin: 0 0 14px;
+}
+
+[data-claude-ui] .clui-prose p:last-child {
+  margin-bottom: 0;
+}
+
+[data-claude-ui] .clui-prose strong {
+  font-weight: 600;
+}
+
+[data-claude-ui] .clui-message--user {
+  justify-self: end;
+  max-width: min(100%, 640px);
+  padding: 14px 18px;
+  background: var(--clui-base);
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-message);
+}
+
+[data-claude-ui] .clui-message--user .clui-message-head {
+  margin-bottom: 6px;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-message-text {
+  margin: 0;
+  line-height: var(--clui-leading-prose);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+[data-claude-ui] .clui-local-files {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+  overflow-wrap: anywhere;
+}
+
+[data-claude-ui] .clui-details {
+  margin: 18px 0;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-lg);
+  background: var(--clui-panel);
+  overflow: hidden;
+}
+
+[data-claude-ui] .clui-details summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 13px;
+  color: var(--clui-text-secondary);
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--clui-text-sm);
+}
+
+[data-claude-ui] .clui-details summary::-webkit-details-marker {
+  display: none;
+}
+
+[data-claude-ui] .clui-details .clui-chevron {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  transition: transform var(--clui-motion-fast) var(--clui-ease-out);
+}
+
+[data-claude-ui] .clui-details[open] .clui-chevron {
+  transform: rotate(90deg);
+}
+
+[data-claude-ui] .clui-details-body {
+  padding: 0 14px 14px;
+  color: var(--clui-text-secondary);
+  font-size: var(--clui-text-sm);
+  line-height: 1.8;
+}
+
+[data-claude-ui] .clui-details-body p {
+  margin: 0;
+}
+
+[data-claude-ui] .clui-code {
+  margin: 18px 0 0;
+  background: var(--clui-code-bg);
+  /* An inset ring preserves fractional strokes that borders may round up. */
+  border: 0;
+  box-shadow: inset 0 0 0 var(--clui-hairline) var(--clui-border);
+  border-radius: var(--clui-radius-lg);
+  overflow: hidden;
+}
+
+[data-claude-ui] .clui-code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  padding: 4px 10px 4px 14px;
+  border-bottom: 1px solid var(--clui-border);
+  color: var(--clui-text-muted);
+  font-family: var(--clui-font-mono);
+  font-size: 11px;
+}
+
+[data-claude-ui] .clui-code pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  tab-size: 2;
+}
+
+[data-claude-ui] .clui-code code {
+  font-family: var(--clui-font-mono);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+[data-claude-ui] .clui-code-comment {
+  color: var(--clui-text-muted);
+}
+
+[data-claude-ui] .clui-composer {
+  margin-top: 28px;
+  padding: 14px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-composer);
+  background: var(--clui-raised);
+  box-shadow: var(--clui-shadow-raised);
+  transition: border-color var(--clui-motion-fast) ease-out, box-shadow var(--clui-motion-fast) ease-out;
+}
+
+[data-claude-ui] .clui-composer:focus-within {
+  border-color: var(--clui-focus);
+  box-shadow: 0 0 0 2px var(--clui-accent-soft), var(--clui-shadow-raised);
+}
+
+[data-claude-ui] .clui-composer textarea {
+  display: block;
+  width: 100%;
+  min-height: 70px;
+  max-height: 220px;
+  padding: 6px 6px 14px;
+  border: 0;
+  border-radius: var(--clui-radius-sm);
+  color: var(--clui-text);
+  background: transparent;
+  font-size: var(--clui-text-base);
+  line-height: 1.7;
+  resize: none;
+}
+
+[data-claude-ui] .clui-composer textarea::placeholder,
+[data-claude-ui] .clui-input::placeholder {
+  color: var(--clui-text-muted);
+  opacity: 1;
+}
+
+[data-claude-ui] .clui-composer textarea:focus-visible {
+  outline-offset: 0;
+}
+
+[data-claude-ui] .clui-composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+[data-claude-ui] .clui-composer-hint {
+  margin: 0;
+  color: var(--clui-text-muted);
+  font-size: 11px;
+}
+
+[data-claude-ui] .clui-composer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+[data-claude-ui] .clui-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+[data-claude-ui] .clui-attachment {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  max-width: 100%;
+  padding-left: 10px;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-md);
+  background: var(--clui-base);
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-attachment-name {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-claude-ui] .clui-attachment-remove {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 6px;
+  border: 0;
+  border-radius: var(--clui-radius-sm);
+  color: var(--clui-text-muted);
+  background: transparent;
+}
+
+[data-claude-ui] .clui-caption {
+  margin: 12px 0 0;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+  line-height: 1.7;
+}
+
+[data-claude-ui] .clui-caption--center {
+  text-align: center;
+}
+
+[data-claude-ui] .clui-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 18px;
+}
+
+[data-claude-ui] .clui-card {
+  min-width: 0;
+  padding: 24px;
+  border: 0;
+  border-radius: var(--clui-radius-xl);
+  background: var(--clui-panel);
+  box-shadow: inset 0 0 0 var(--clui-hairline) var(--clui-border), var(--clui-shadow-sm);
+}
+
+[data-claude-ui] .clui-card-title {
+  margin: 0;
+  font-size: var(--clui-text-base);
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-card-copy {
+  margin: 9px 0 0;
+  color: var(--clui-text-secondary);
+  font-size: var(--clui-text-sm);
+  line-height: 1.8;
+}
+
+[data-claude-ui] .clui-card-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+  border-radius: var(--clui-radius-lg);
+  color: var(--clui-accent-text);
+  background: var(--clui-accent-soft);
+}
+
+[data-claude-ui] .clui-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+[data-claude-ui] .clui-palette {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 22px;
+}
+
+[data-claude-ui] .clui-swatch {
+  height: 48px;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-md);
+}
+
+[data-claude-ui] .clui-swatch--base { background: var(--clui-base); }
+[data-claude-ui] .clui-swatch--canvas { background: var(--clui-canvas); }
+[data-claude-ui] .clui-swatch--panel { background: var(--clui-panel); }
+[data-claude-ui] .clui-swatch--accent { background: var(--clui-accent); }
+
+[data-claude-ui] .clui-swatch-label {
+  margin-top: 6px;
+  color: var(--clui-text-muted);
+  font-size: 10px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+[data-claude-ui] .clui-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+[data-claude-ui] .clui-field {
+  display: grid;
+  gap: 7px;
+}
+
+[data-claude-ui] .clui-label {
+  font-size: var(--clui-text-sm);
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--clui-control-lg);
+  padding: 9px 11px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-md);
+  color: var(--clui-text);
+  background: var(--clui-panel);
+  font-size: var(--clui-text-sm);
+  line-height: 1.5;
+}
+
+[data-claude-ui] .clui-input[aria-invalid="true"] {
+  border-color: var(--clui-danger);
+}
+
+[data-claude-ui] .clui-field-hint {
+  margin: 0;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+  line-height: 1.65;
+}
+
+[data-claude-ui] .clui-field-error {
+  margin: 0;
+  color: var(--clui-danger);
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+[data-claude-ui] .clui-switch-copy {
+  display: grid;
+  gap: 3px;
+}
+
+[data-claude-ui] .clui-switch-copy strong {
+  font-size: var(--clui-text-sm);
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-switch-copy small {
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+}
+
+[data-claude-ui] .clui-switch input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+[data-claude-ui] .clui-switch-track {
+  width: 36px;
+  height: 22px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-full);
+  background: var(--clui-selected);
+  pointer-events: none;
+  transition: background var(--clui-motion-fast) ease-out;
+}
+
+[data-claude-ui] .clui-switch-track::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--clui-radius-full);
+  background: var(--clui-text-muted);
+  transition: transform var(--clui-motion-fast) var(--clui-ease-out);
+}
+
+[data-claude-ui] .clui-switch input:checked + .clui-switch-track {
+  background: var(--clui-action);
+  border-color: var(--clui-action);
+}
+
+[data-claude-ui] .clui-switch input:checked + .clui-switch-track::before {
+  background: var(--clui-on-action);
+  transform: translateX(14px);
+}
+
+[data-claude-ui] .clui-switch input:focus-visible + .clui-switch-track {
+  outline: 2px solid var(--clui-focus);
+  outline-offset: 3px;
+}
+
+[data-claude-ui] .clui-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+[data-claude-ui] .clui-form-result {
+  margin: 0;
+  padding: 11px 13px;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-md);
+  color: var(--clui-success);
+  background: var(--clui-success-soft);
+  font-size: var(--clui-text-xs);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+[data-claude-ui] .clui-form-result[data-persisted="false"] {
+  color: var(--clui-warning);
+  background: var(--clui-warning-soft);
+}
+
+[data-claude-ui] .clui-segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 0;
+  padding: 3px;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-md);
+  background: var(--clui-base);
+}
+
+[data-claude-ui] .clui-segmented label {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-claude-ui] .clui-segmented label input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+[data-claude-ui] .clui-segmented label span,
+[data-claude-ui] .clui-segmented button {
+  display: grid;
+  place-items: center;
+  min-height: 28px;
+  padding: 5px 11px;
+  border: 0;
+  border-radius: var(--clui-radius-xs);
+  color: var(--clui-text-secondary);
+  background: transparent;
+  font-size: var(--clui-text-xs);
+  line-height: 1.4;
+}
+
+[data-claude-ui] .clui-segmented label input:checked + span,
+[data-claude-ui] .clui-segmented button[aria-selected="true"] {
+  color: var(--clui-text);
+  background: var(--clui-panel);
+  outline: 1px solid var(--clui-control-border);
+  outline-offset: -1px;
+  font-weight: 600;
+  box-shadow: var(--clui-shadow-sm);
+}
+
+[data-claude-ui] .clui-segmented label input:focus-visible + span {
+  outline: 2px solid var(--clui-focus);
+  outline-offset: 2px;
+}
+
+[data-claude-ui] .clui-table-wrap {
+  min-width: 0;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-xl);
+  background: var(--clui-panel);
+  overflow: auto;
+}
+
+[data-claude-ui] .clui-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--clui-text-sm);
+}
+
+[data-claude-ui] .clui-table th {
+  padding: 13px 18px;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+  font-weight: 400;
+  text-align: left;
+  white-space: nowrap;
+}
+
+[data-claude-ui] .clui-table td {
+  padding: 16px 18px;
+  border-top: 1px solid var(--clui-border);
+  vertical-align: middle;
+}
+
+[data-claude-ui] .clui-table td:first-child {
+  width: 53%;
+  min-width: 160px;
+}
+
+[data-claude-ui] .clui-table-title {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--clui-text);
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-table-sub {
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+}
+
+[data-claude-ui] .clui-task-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+[data-claude-ui] .clui-task-cards .clui-card {
+  padding: 20px;
+}
+
+[data-claude-ui] .clui-task-cards .clui-badge {
+  margin-bottom: 16px;
+}
+
+[data-claude-ui] .clui-state-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+[data-claude-ui] .clui-state-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--clui-border);
+}
+
+[data-claude-ui] .clui-state-body {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  min-height: 260px;
+  padding: 36px 24px;
+  text-align: center;
+}
+
+[data-claude-ui] .clui-state-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 4px;
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-xl);
+  color: var(--clui-text-muted);
+  background: var(--clui-base);
+}
+
+[data-claude-ui] .clui-state-icon--error {
+  color: var(--clui-danger);
+  background: var(--clui-danger-soft);
+  border-color: transparent;
+}
+
+[data-claude-ui] .clui-state-icon--success {
+  color: var(--clui-success);
+  background: var(--clui-success-soft);
+  border-color: transparent;
+}
+
+[data-claude-ui] .clui-state-body h3 {
+  margin: 0;
+  font-size: var(--clui-text-base);
+  font-weight: 500;
+}
+
+[data-claude-ui] .clui-state-body p {
+  max-width: 42ch;
+  margin: 0 0 6px;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-sm);
+  line-height: 1.8;
+}
+
+[data-claude-ui] .clui-skeleton-group {
+  display: grid;
+  gap: 14px;
+  width: min(100%, 420px);
+  padding-block: 18px;
+}
+
+[data-claude-ui] .clui-skeleton {
+  height: 12px;
+  border-radius: var(--clui-radius-xs);
+  background: var(--clui-selected);
+  animation: clui-skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+[data-claude-ui] .clui-skeleton:nth-child(1) { width: 42%; height: 18px; }
+[data-claude-ui] .clui-skeleton:nth-child(2) { width: 100%; }
+[data-claude-ui] .clui-skeleton:nth-child(3) { width: 84%; }
+[data-claude-ui] .clui-skeleton:nth-child(4) { width: 62%; }
+
+@keyframes clui-skeleton-pulse {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
+[data-claude-ui] .clui-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 48px;
+  padding-block: 20px 12px;
+  border-top: 1px solid var(--clui-border);
+  color: var(--clui-text-muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+[data-claude-ui] .clui-footer p {
+  margin: 0;
+}
+
+[data-claude-ui] .clui-toast {
+  position: fixed;
+  z-index: 80;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  max-width: min(400px, calc(100vw - 40px));
+  padding: 12px 16px;
+  border: 1px solid var(--clui-border-strong);
+  border-radius: var(--clui-radius-lg);
+  color: var(--clui-text);
+  background: var(--clui-raised);
+  box-shadow: var(--clui-shadow-raised);
+  font-size: var(--clui-text-sm);
+  line-height: 1.7;
+  pointer-events: none;
+}
+
+[data-claude-ui] .clui-drawer-close,
+[data-claude-ui] .clui-scrim {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-claude-ui] .clui-btn:hover:not(:disabled),
+  [data-claude-ui] .clui-nav-link:hover,
+  [data-claude-ui] .clui-recent-link:hover,
+  [data-claude-ui] .clui-attachment-remove:hover {
+    background: var(--clui-hover);
+  }
+
+  [data-claude-ui] .clui-btn--primary:hover:not(:disabled) {
+    background: var(--clui-action-hover);
+  }
+
+  [data-claude-ui] .clui-table tbody tr:hover {
+    background: var(--clui-hover);
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1100px) {
+  [data-claude-ui] .clui-main { padding-inline: 32px; }
+  [data-claude-ui] .clui-topbar { padding-inline: 20px; }
+  [data-claude-ui] .clui-toolbar-select > span { display: none; }
+}
+
+@media (max-width: 760px) {
+  [data-claude-ui] .clui-app {
+    display: block;
+  }
+
+  [data-claude-ui] .clui-sidebar {
+    position: fixed;
+    z-index: 60;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(296px, calc(100vw - 32px));
+    padding-top: max(18px, env(safe-area-inset-top));
+    padding-bottom: max(18px, env(safe-area-inset-bottom));
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition: transform var(--clui-motion-base) var(--clui-ease-snap), visibility 0s var(--clui-motion-base);
+  }
+
+  [data-claude-ui][data-drawer-open="true"] {
+    overflow: hidden;
+  }
+
+  [data-claude-ui][data-drawer-open="true"] .clui-sidebar {
+    visibility: visible;
+    transform: translateX(0);
+    transition-delay: 0s;
+  }
+
+  [data-claude-ui][data-sidebar-collapsed="true"] .clui-sidebar-text,
+  [data-claude-ui][data-sidebar-collapsed="true"] .clui-recents {
+    display: block;
+  }
+
+  [data-claude-ui][data-sidebar-collapsed="true"] .clui-nav-link {
+    justify-content: flex-start;
+    padding-inline: 12px;
+  }
+
+  [data-claude-ui] .clui-drawer-close {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  [data-claude-ui][data-drawer-open="true"] .clui-scrim {
+    position: fixed;
+    z-index: 50;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--clui-scrim);
+    cursor: default;
+  }
+
+  [data-claude-ui] .clui-topbar {
+    min-height: 64px;
+    gap: 8px;
+    padding: max(10px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 10px max(12px, env(safe-area-inset-left));
+  }
+
+  [data-claude-ui] .clui-topbar-title,
+  [data-claude-ui] .clui-toolbar-select > span {
+    display: none;
+  }
+
+  [data-claude-ui] .clui-toolbar {
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  [data-claude-ui] .clui-toolbar-select select {
+    min-height: 44px;
+    max-width: 132px;
+    padding-inline: 8px 20px;
+    font-size: 16px;
+  }
+
+  [data-claude-ui] .clui-main {
+    padding: 34px max(18px, env(safe-area-inset-right)) 16px max(18px, env(safe-area-inset-left));
+  }
+
+  [data-claude-ui] .clui-section { scroll-margin-top: 90px; }
+  [data-claude-ui] .clui-section + .clui-section { margin-top: 40px; }
+  [data-claude-ui] .clui-intro { margin-bottom: 28px; }
+  [data-claude-ui] .clui-grid,
+  [data-claude-ui] .clui-task-cards { grid-template-columns: minmax(0, 1fr); }
+  [data-claude-ui] .clui-card { padding: 20px; }
+  [data-claude-ui] .clui-state-card { padding: 0; }
+  [data-claude-ui] .clui-conversation { padding: 0; }
+  [data-claude-ui] .clui-composer { padding: 10px; }
+  [data-claude-ui] .clui-composer textarea,
+  [data-claude-ui] .clui-input { font-size: 16px; }
+  [data-claude-ui] .clui-composer-hint { max-width: 17ch; font-size: 10px; }
+  [data-claude-ui] .clui-table th,
+  [data-claude-ui] .clui-table td { padding-inline: 14px; }
+  [data-claude-ui] .clui-table .clui-table-time { display: none; }
+  [data-claude-ui] .clui-table td:first-child { min-width: 130px; }
+  [data-claude-ui] .clui-state-toolbar { padding-inline: 16px; }
+  [data-claude-ui] .clui-state-body { padding-inline: 20px; }
+  [data-claude-ui] .clui-attachment-name { max-width: 170px; }
+
+  [data-claude-ui] .clui-btn,
+  [data-claude-ui] .clui-details summary,
+  [data-claude-ui] .clui-nav-link,
+  [data-claude-ui] .clui-recent-link,
+  [data-claude-ui] .clui-segmented label span,
+  [data-claude-ui] .clui-segmented button,
+  [data-claude-ui] .clui-attachment-remove {
+    min-height: var(--clui-touch-target);
+  }
+
+  [data-claude-ui] .clui-btn--icon,
+  [data-claude-ui] .clui-attachment-remove {
+    min-width: var(--clui-touch-target);
+    flex-basis: var(--clui-touch-target);
+  }
+
+  [data-claude-ui] .clui-footer { margin-top: 32px; }
+}
+
+@media (pointer: coarse) {
+  [data-claude-ui] .clui-btn,
+  [data-claude-ui] .clui-details summary,
+  [data-claude-ui] .clui-nav-link,
+  [data-claude-ui] .clui-recent-link,
+  [data-claude-ui] .clui-toolbar-select select,
+  [data-claude-ui] .clui-segmented label span,
+  [data-claude-ui] .clui-segmented button,
+  [data-claude-ui] .clui-attachment-remove {
+    min-height: var(--clui-touch-target);
+  }
+
+  [data-claude-ui] .clui-btn--icon,
+  [data-claude-ui] .clui-attachment-remove {
+    min-width: var(--clui-touch-target);
+    flex-basis: var(--clui-touch-target);
+  }
+
+  [data-claude-ui] .clui-composer textarea,
+  [data-claude-ui] .clui-input,
+  [data-claude-ui] .clui-toolbar-select select {
+    font-size: 16px;
+  }
+}
+
+@media (forced-colors: active) {
+  [data-claude-ui] .clui-btn,
+  [data-claude-ui] .clui-switch-track,
+  [data-claude-ui] .clui-segmented input:checked + span,
+  [data-claude-ui] .clui-segmented button[aria-selected="true"] {
+    border: 1px solid ButtonText;
+  }
+}

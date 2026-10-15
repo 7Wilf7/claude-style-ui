@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude Style UI"
+  short_description: "Build Claude-inspired interfaces for local projects"
+  default_prompt: "Use $claude-style-ui to implement a Claude-inspired interface in this project and verify it in the browser."

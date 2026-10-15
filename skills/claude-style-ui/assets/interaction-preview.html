@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Claude-style UI · Interaction reference</title>
+  <link rel="stylesheet" href="claude-theme.css">
+  <link rel="stylesheet" href="claude-components.css">
+  <link rel="stylesheet" href="interaction-preview.css">
+  <script src="claude-interactions.js" defer></script>
+</head>
+<body data-claude-ui data-claude-palette="storybook" data-claude-theme="system">
+  <main class="clui-interaction-page">
+    <header class="clui-interaction-header">
+      <div>
+        <p class="clui-interaction-eyebrow">Claude-style UI / Local reference</p>
+        <h1 class="clui-interaction-title">让交互照顾阅读。</h1>
+        <p class="clui-interaction-intro">两种按需使用的本地交互：持续更新时保留你的阅读位置，双栏调整时让鼠标和键盘都能操作。它们独立运行，无须联网。</p>
+      </div>
+      <fieldset class="clui-theme-options">
+        <legend class="clui-sr-only">界面主题</legend>
+        <label><input type="radio" name="theme" value="system" checked>跟随系统</label>
+        <label><input type="radio" name="theme" value="light">浅色</label>
+        <label><input type="radio" name="theme" value="dark">深色</label>
+      </fieldset>
+    </header>
+
+    <section class="clui-interaction-section" aria-labelledby="follow-title">
+      <div class="clui-interaction-heading"><span class="clui-interaction-number">01</span><h2 id="follow-title">更新继续，阅读不被打断</h2></div>
+      <p class="clui-interaction-hint" id="follow-help">开始模拟后，新段落会逐步追加。向上滚动，或聚焦阅读区后按 ↑ / Page Up / Home，会暂停跟随；使用“回到最新”继续。下方草稿只是输入示例，不会发送。</p>
+      <div class="clui-interaction-frame">
+        <div class="clui-interaction-toolbar">
+          <div class="clui-interaction-actions">
+            <button class="clui-btn clui-btn--primary" id="stream-toggle" type="button">开始模拟更新</button>
+            <button class="clui-btn" id="stream-reset" type="button">重置内容</button>
+          </div>
+          <p class="clui-interaction-status" id="stream-status" role="status">模拟已停止 · 无网络请求</p>
+        </div>
+        <div class="clui-flow-viewport" id="flow-viewport" role="region" aria-label="模拟内容阅读区" aria-describedby="follow-help" tabindex="0">
+          <div class="clui-flow-content" id="flow-content">
+            <p class="clui-flow-speaker">本地模拟 · 阅读笔记</p>
+            <p>先留一点空间，让文字好好说话。这里的更新由本页计时器生成，用来演示滚动行为。</p>
+          </div>
+        </div>
+        <div class="clui-flow-footer">
+          <p class="clui-interaction-status" id="follow-status" role="status">正在跟随最新内容</p>
+          <button class="clui-btn" id="jump-latest" type="button" hidden>回到最新并恢复跟随 ↓</button>
+        </div>
+        <div class="clui-flow-composer">
+          <label for="demo-draft">草稿 · 仅供输入，不发送</label>
+          <textarea id="demo-draft" placeholder="输入中文或英文，不会打断上方的跟随状态。"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="clui-interaction-section" aria-labelledby="split-title">
+      <div class="clui-interaction-heading"><span class="clui-interaction-number">02</span><h2 id="split-title">给内容合适的宽度</h2></div>
+      <p class="clui-interaction-hint" id="split-help">拖动中间手柄调整；聚焦手柄后按 ← / → 微调、Home / End 到边界，Enter 或双击居中。拖动中按 Escape 撤销。空间不足时，两栏自然堆叠。</p>
+      <div class="clui-interaction-frame">
+        <div class="clui-interaction-toolbar">
+          <p class="clui-interaction-status">阅读与文档 · 两栏内容始终保留</p>
+          <button class="clui-btn" id="split-reset" type="button">恢复居中</button>
+        </div>
+        <div class="clui-split" id="split-root">
+          <section class="clui-split-pane" id="split-left" aria-labelledby="conversation-title">
+            <h3 id="conversation-title">整理一次周末出行</h3>
+            <p>一个安静的工作区，把讨论和正在编辑的内容放在一起。需要仔细看文档时，向左调整分割线。</p>
+            <ul><li>上午出发，预留休息时间。</li><li>选择适合当日状态的路线。</li><li>把重要信息留在视线之内。</li></ul>
+            <p>这是独立的界面演示，没有连接地图、模型或个人数据。</p>
+          </section>
+          <div class="clui-split-separator" id="split-separator" aria-label="调整阅读区与文档区宽度" aria-describedby="split-help"><span aria-hidden="true">⋮</span></div>
+          <section class="clui-split-pane" id="split-right" aria-labelledby="document-title">
+            <h3 id="document-title">文档预览</h3>
+            <article class="clui-split-document"><small>LOCAL DRAFT / 本地示例</small><h4>周末，去山里走走。</h4><p>路线不必排得太满。留出看风景、喝水，以及临时改变计划的时间。</p><p>给文档多一点空间，或把它放回两栏之间。调整宽度不会隐藏已有内容。</p></article>
+          </section>
+        </div>
+      </div>
+    </section>
+    <p class="clui-interaction-footnote">参考 Claude 的克制视觉语言。演示内容和更新均为模拟；不会保存或发送草稿。</p>
+  </main>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      const viewport = document.getElementById('flow-viewport');
+      const content = document.getElementById('flow-content');
+      const toggle = document.getElementById('stream-toggle');
+      const streamStatus = document.getElementById('stream-status');
+      const followStatus = document.getElementById('follow-status');
+      const initialContent = content.innerHTML;
+      const passages = [
+        '良好的界面不只关乎颜色和圆角，也关乎你操作之后，事情是否按预期发生。',
+        '当你回头阅读上一段，新内容可以继续到达。页面应保留你的位置，让你决定什么时候回到最新。',
+        '如果内容变高，例如图片载入或窗口改变，跟随状态仍应保持清晰，不能突然把正在阅读的人拉走。',
+        '控制要有明确的名字和可见的焦点。键盘、触摸与鼠标，都应有合理的操作路径。',
+        '动效可以帮助理解变化，但重复阅读时，稳定的文字和即时反馈通常更重要。'
+      ];
+      let timer = 0;
+      let count = 0;
+      let disposed = false;
+      const follow = window.ClaudeStyleUI.attachScrollFollow({ viewport: viewport, content: content, jumpButton: document.getElementById('jump-latest') });
+      const split = window.ClaudeStyleUI.attachSplitPane({ root: document.getElementById('split-root'), leftPane: document.getElementById('split-left'), rightPane: document.getElementById('split-right'), separator: document.getElementById('split-separator'), resetButton: document.getElementById('split-reset') });
+      const stateObserver = new MutationObserver(function () {
+        const next = viewport.getAttribute('data-clui-follow') === 'paused' ? '已保留你的阅读位置 · 更新仍可继续' : '正在跟随最新内容';
+        if (followStatus.textContent !== next) followStatus.textContent = next;
+      });
+      stateObserver.observe(viewport, { attributes: true, attributeFilter: ['data-clui-follow'] });
+      function stop() {
+        window.clearInterval(timer);
+        timer = 0;
+        toggle.textContent = '开始模拟更新';
+        streamStatus.textContent = '模拟已停止 · 无网络请求';
+      }
+      function append() {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = passages[count % passages.length];
+        content.appendChild(paragraph);
+        count += 1;
+        // Keep an idle tab from growing an unlimited simulated transcript.
+        if (count >= 40) stop();
+      }
+      function toggleStream() {
+        if (timer) { stop(); return; }
+        if (count >= 40) { count = 0; content.innerHTML = initialContent; follow.jumpToLatest(); }
+        toggle.textContent = '停止模拟更新';
+        streamStatus.textContent = '正在模拟更新 · 无网络请求';
+        timer = window.setInterval(append, 420);
+        append();
+      }
+      function resetStream() { stop(); count = 0; content.innerHTML = initialContent; follow.jumpToLatest(); }
+      function changeTheme(event) { if (event.target.name === 'theme') document.body.dataset.claudeTheme = event.target.value; }
+      toggle.addEventListener('click', toggleStream);
+      document.getElementById('stream-reset').addEventListener('click', resetStream);
+      document.querySelector('.clui-theme-options').addEventListener('change', changeTheme);
+      function dispose() {
+        if (disposed) return;
+        disposed = true;
+        stop();
+        stateObserver.disconnect();
+        follow.destroy();
+        split.destroy();
+        toggle.removeEventListener('click', toggleStream);
+        document.getElementById('stream-reset').removeEventListener('click', resetStream);
+        document.querySelector('.clui-theme-options').removeEventListener('change', changeTheme);
+        window.removeEventListener('pagehide', onPageHide);
+        document.getElementById('split-root').removeEventListener('clui:demo-destroy', dispose);
+      }
+      function onPageHide(event) { if (event.persisted) stop(); else dispose(); }
+      window.addEventListener('pagehide', onPageHide);
+      // Demo-only teardown hook, used by the local verification script.
+      document.getElementById('split-root').addEventListener('clui:demo-destroy', dispose, { once: true });
+    });
+  </script>
+</body>
+</html>

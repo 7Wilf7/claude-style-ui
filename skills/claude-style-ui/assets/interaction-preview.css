@@ -1,0 +1,297 @@
+/* Companion styles for the optional helpers and their offline demonstration.
+ * Original implementation; isolated beneath the existing Claude theme root.
+ */
+[data-claude-ui] .clui-interaction-page {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: 48px 28px 64px;
+}
+[data-claude-ui] .clui-interaction-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+[data-claude-ui] .clui-interaction-eyebrow {
+  color: var(--clui-accent-text);
+  font-size: var(--clui-text-xs);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+[data-claude-ui] .clui-interaction-title {
+  margin: 0 0 12px;
+  font: 400 var(--clui-text-title) / 1.2 var(--clui-font-serif);
+  letter-spacing: -.025em;
+}
+[data-claude-ui] .clui-interaction-intro {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--clui-text-secondary);
+  line-height: 1.8;
+}
+[data-claude-ui] .clui-theme-options {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px;
+  gap: 2px;
+  margin: 0;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-full);
+  white-space: nowrap;
+  background: var(--clui-base);
+}
+[data-claude-ui] .clui-theme-options label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 52px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: var(--clui-radius-full);
+  cursor: pointer;
+  font-size: var(--clui-text-xs);
+  color: var(--clui-text-secondary);
+}
+[data-claude-ui] .clui-theme-options input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+[data-claude-ui] .clui-theme-options label:has(input:checked) {
+  color: var(--clui-text);
+  background: var(--clui-panel);
+  box-shadow: var(--clui-shadow-sm);
+}
+[data-claude-ui] .clui-theme-options label:has(input:focus-visible) {
+  outline: 2px solid var(--clui-focus);
+  outline-offset: 2px;
+}
+[data-claude-ui] .clui-interaction-section {
+  margin-top: 36px;
+}
+[data-claude-ui] .clui-interaction-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+[data-claude-ui] .clui-interaction-heading h2 {
+  margin: 0;
+  font-size: var(--clui-text-lg);
+  font-weight: 600;
+}
+[data-claude-ui] .clui-interaction-number {
+  font: var(--clui-text-xs) var(--clui-font-mono);
+  color: var(--clui-text-muted);
+}
+[data-claude-ui] .clui-interaction-hint {
+  color: var(--clui-text-secondary);
+  font-size: var(--clui-text-sm);
+  line-height: 1.75;
+  margin: 8px 0 16px;
+}
+[data-claude-ui] .clui-interaction-frame {
+  overflow: hidden;
+  background: var(--clui-panel);
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-xl);
+  box-shadow: var(--clui-shadow-sm);
+}
+[data-claude-ui] .clui-interaction-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--clui-border);
+  background: var(--clui-base);
+}
+[data-claude-ui] .clui-interaction-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+[data-claude-ui] .clui-interaction-page .clui-btn {
+  min-width: 44px;
+  min-height: 44px;
+  white-space: normal;
+}
+[data-claude-ui] .clui-interaction-status {
+  margin: 0;
+  color: var(--clui-text-secondary);
+  font-size: var(--clui-text-xs);
+}
+[data-claude-ui] .clui-flow-viewport {
+  height: 320px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+  background: var(--clui-canvas);
+}
+[data-claude-ui] .clui-flow-viewport:focus-visible,
+[data-claude-ui] .clui-split-pane:focus-visible {
+  outline: 2px solid var(--clui-focus);
+  outline-offset: -3px;
+}
+[data-claude-ui] .clui-flow-content {
+  max-width: 76ch;
+  margin-inline: auto;
+  padding: 20px 24px 28px;
+  overflow-wrap: anywhere;
+  line-height: 1.85;
+}
+[data-claude-ui] .clui-flow-content p {
+  margin: 0 0 18px;
+}
+[data-claude-ui] .clui-flow-content p:last-child { margin-bottom: 0; }
+[data-claude-ui] .clui-flow-content .clui-flow-speaker {
+  margin-bottom: 8px;
+  font-size: var(--clui-text-xs);
+  font-weight: 600;
+  color: var(--clui-text-muted);
+}
+[data-claude-ui] .clui-flow-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  min-height: 69px;
+  border-top: 1px solid var(--clui-border);
+}
+[data-claude-ui] .clui-flow-footer .clui-btn[hidden] { display: none; }
+[data-claude-ui] .clui-flow-composer {
+  padding: 16px;
+  background: var(--clui-base);
+  border-top: 1px solid var(--clui-border);
+}
+[data-claude-ui] .clui-flow-composer label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--clui-text-secondary);
+  font-size: var(--clui-text-xs);
+}
+[data-claude-ui] .clui-flow-composer textarea {
+  display: block;
+  width: 100%;
+  min-height: 72px;
+  resize: vertical;
+  padding: 12px 14px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-composer);
+  background: var(--clui-panel);
+  color: var(--clui-text);
+  font: 16px / 1.6 var(--clui-font-sans);
+}
+[data-claude-ui] .clui-flow-composer textarea:focus-visible {
+  outline: 2px solid var(--clui-focus);
+  outline-offset: 2px;
+}
+[data-claude-ui] .clui-split {
+  display: grid;
+  grid-template-columns: var(--clui-split-left, minmax(0, 1fr)) 44px minmax(0, 1fr);
+  align-items: stretch;
+  min-width: 0;
+  background: var(--clui-panel);
+}
+[data-claude-ui] .clui-split-pane {
+  min-width: 0;
+  padding: 24px;
+  overflow-wrap: anywhere;
+  background: var(--clui-canvas);
+}
+[data-claude-ui] .clui-split-pane h3 {
+  font-size: var(--clui-text-base);
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+[data-claude-ui] .clui-split-pane p {
+  color: var(--clui-text-secondary);
+  line-height: 1.85;
+  margin: 0 0 14px;
+}
+[data-claude-ui] .clui-split-pane ul {
+  padding-left: 20px;
+  color: var(--clui-text-secondary);
+  line-height: 1.85;
+}
+[data-claude-ui] .clui-split-document {
+  max-width: 60ch;
+  padding: 20px;
+  background: var(--clui-panel);
+  border: 1px solid var(--clui-border);
+  border-radius: var(--clui-radius-lg);
+}
+[data-claude-ui] .clui-split-document small {
+  font-size: var(--clui-text-xs);
+  color: var(--clui-text-muted);
+}
+[data-claude-ui] .clui-split-document h4 {
+  margin: 12px 0;
+  font: 400 24px / 1.3 var(--clui-font-serif);
+}
+[data-claude-ui] .clui-split-separator {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  min-height: 44px;
+  cursor: col-resize;
+  touch-action: none;
+  background: var(--clui-panel);
+  color: var(--clui-text-muted);
+  position: relative;
+  user-select: none;
+}
+[data-claude-ui] .clui-split-separator::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: var(--clui-border);
+}
+[data-claude-ui] .clui-split-separator span {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 36px;
+  border: 1px solid var(--clui-control-border);
+  border-radius: var(--clui-radius-full);
+  background: var(--clui-panel);
+  font-size: 18px;
+  line-height: 1;
+}
+[data-claude-ui] .clui-split-separator:hover,
+[data-claude-ui] [data-clui-dragging="true"] > .clui-split-separator {
+  color: var(--clui-accent-text);
+  background: var(--clui-accent-soft);
+}
+[data-claude-ui] .clui-split-separator:focus-visible {
+  outline: 2px solid var(--clui-focus);
+  outline-offset: -3px;
+}
+[data-claude-ui] [data-clui-dragging="true"] { user-select: none; }
+[data-claude-ui] .clui-split[data-clui-split="stacked"] { grid-template-columns: minmax(0, 1fr); }
+[data-claude-ui] .clui-split[data-clui-split="stacked"] > .clui-split-pane + .clui-split-separator + .clui-split-pane {
+  border-top: 1px solid var(--clui-border);
+}
+[data-claude-ui] .clui-split-separator[hidden] { display: none; }
+[data-claude-ui] .clui-interaction-footnote {
+  margin-top: 28px;
+  color: var(--clui-text-muted);
+  font-size: var(--clui-text-xs);
+  line-height: 1.8;
+}
+@media (max-width: 700px) {
+  [data-claude-ui] .clui-interaction-page { padding: 28px 16px 44px; }
+  [data-claude-ui] .clui-interaction-header { flex-direction: column; gap: 18px; margin-bottom: 28px; }
+  [data-claude-ui] .clui-interaction-toolbar { flex-direction: column; align-items: flex-start; }
+  [data-claude-ui] .clui-flow-footer { flex-wrap: wrap; }
+  [data-claude-ui] .clui-flow-content { padding: 18px; }
+  [data-claude-ui] .clui-split-pane { padding: 18px; }
+  [data-claude-ui] .clui-split-document { padding: 16px; }
+}
