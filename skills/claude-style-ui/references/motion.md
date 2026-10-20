@@ -41,7 +41,7 @@ The inspected source includes these four presets. Use them only when a project a
 | Bouncy feedback | `380` | `18` | `1` |
 | Panel/drag | `1200` | `80` | `0.1` |
 
-At Open Claude UI commit `2834bc1`, the actual TS export names are respectively `SPRING_BOUNCY`, `SPRING_SNAPPY`, `SPRING_GENTLE`, and `SPRING_HEAVY_SNAP`. Its AGENTS/manuals give different numbers and swap the apparent roles of the first three names. Use the implementation's numeric contract when adapting that file; do not combine a documentation name with a different row's parameters. The existing table remains the numeric reference for this skill, not a mandate to install Framer Motion.
+At Open Claude UI commit `4045ce7`, the actual TS export names are respectively `SPRING_BOUNCY`, `SPRING_SNAPPY`, `SPRING_GENTLE`, and `SPRING_HEAVY_SNAP`. Some guide tables give different numbers/roles; recheck the actual file when adopting another revision. Use the implementation's numeric contract when adapting that file; do not combine a documentation name with a different row's parameters. The existing table remains the numeric reference for this skill, not a mandate to install Framer Motion.
 
 The page's advertised settling/overshoot labels were not independently measured. Do not repeat those figures as guarantees, or mix physical spring parameters with duration/bounce parameterizations and claim they are equivalent.
 

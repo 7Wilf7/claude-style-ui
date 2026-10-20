@@ -34,6 +34,8 @@ Its grayscale reference includes `#dedcd6`, `#a4a19b`, `#6b6863`, `#373634`, and
 
 These names are host roles; mapping tertiary to a whole standalone canvas is a local layout decision. For a real MCP App, use the live host variables instead of assuming that this snapshot is current.
 
+For an explicitly requested compact desktop workbench, consult [the optional workbench profile](desktop-workbench.md) for density and 12/14 px nominal composer radii. Those report values and the newer upstream CSS palette are separate alternatives; the bundled assets retain the Storybook/official profiles above.
+
 Depth comes mostly from changing surfaces and borders. Raise a composer, menu, or modal with a small shadow. Keep the main page quiet; do not use the Storybook's dotted preview stage as a product background.
 
 ## Typography and bilingual content

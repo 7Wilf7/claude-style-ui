@@ -28,6 +28,8 @@ Attachment tiles should show file type, readable/truncated filename, actual uplo
 
 If commands or mentions are requested, read [advanced composer guidance](advanced-interactions.md#commands-and-mentions-in-a-composer) for caret-aware replacement, suggestion semantics and asynchronous draft ownership.
 
+For compact workbench toolbars, model-effort controls or queued-message notices, read [desktop workbench patterns](desktop-workbench.md). Use backend capabilities and real persistence/receipts; the upstream toolbar is a display example.
+
 ## Buttons, inputs, and selections
 
 - Primary: one clear main action per task; neutral strong or readable terracotta treatment, depending on the selected palette and project.
