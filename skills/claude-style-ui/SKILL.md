@@ -2,14 +2,14 @@
 name: claude-style-ui
 description: "Build, restyle, or review local web interfaces in Claude's visual language when the user asks for Claude UI, Claude 风格, Open Claude UI, or the supplied Storybook/Figma reference. Covers layouts, themes, components, chat, restrained motion and optional advanced interaction recipes. Use for the requested visual direction, not for unrelated UI tasks or merely because a project uses a Claude API."
 metadata:
-  version: "2.1.1"
+  version: "2.2.0"
 ---
 
 # Claude Style UI
 
 Turn the user's chosen Claude references into working interfaces in their existing project. The user does not need to use Figma or know design terminology. Read the project and implement; use concrete rendered results to resolve visual choices.
 
-This is a locally authored, Claude-inspired design skill. It draws on Anthropic's MCP Apps kit/documentation, the user-supplied Storybook, and reviewed code from the community Open Claude UI repository. See [sources and evidence](references/sources.md) for the coverage and limits of each source. It is not an official complete export of Claude's product UI.
+This is a locally authored, Claude-inspired design skill. It draws on Anthropic's MCP Apps kit/documentation, the user-supplied Storybook, and reviewed community interface implementations. See [sources and evidence](references/sources.md) for the coverage and limits of each source. It is not an official complete export of Claude's product UI.
 
 ## Choose the right surface
 
@@ -28,6 +28,8 @@ For existing projects, keep the framework, navigation behavior, data flows, and 
 5. Verify both themes, relevant phone/desktop sizes, keyboard interaction, and content states as described below. Report what was rendered and what remains unverified.
 
 Read [motion](references/motion.md) for transitions, streaming, status indicators or gestures. Read [advanced interactions](references/advanced-interactions.md) for scroll following, resizable document panes, command/mention suggestions, or asynchronous confirmation. Read [Open Claude UI adoption](references/open-claude-ui.md) when choosing upstream CSS or React/Tailwind examples or checking their actual contracts. For a compact desktop workbench, model-effort controls or queued-message notices, read [desktop workbench patterns](references/desktop-workbench.md); the upstream v2 report is a separate optional direction, not a replacement for the default Storybook appearance. These are optional routes; a simple card restyle does not need the advanced helpers or the entire reference set.
+
+For grouped tool activity, artifact Preview/Source views, drafts across conversations or long transcript history, read [community interface patterns](references/community-patterns.md). It separates Claude chat/Design reconstructions from adjacent workbench ideas; none changes the default palette or adds product features on its own.
 
 ## Visual identity that should survive adaptation
 

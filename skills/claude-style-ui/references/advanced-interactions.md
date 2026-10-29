@@ -44,6 +44,8 @@ Choose one complete accessible suggestion model: keep focus in the editor with v
 
 An async submit owns a draft lifecycle: keep or snapshot the draft and attachments, prevent accidental duplicate submission, and preserve/recover input on failure. A callback starting a promise is not the successful result. A token estimate should be clearly approximate unless it uses the target model's actual tokenizer; never present a character-count multiplier as measured model usage.
 
+When several conversations or artifact views are in scope, use the [community patterns](community-patterns.md) for draft ownership across session changes, state-preserving Preview/Source views and history prepends. A late callback belongs to its originating draft/conversation, not whichever editor is currently visible.
+
 ## Confirmation, tools and preview boundaries
 
 Use a real dialog primitive or native dialog with a labelled title/description, appropriate initial focus, background isolation, keyboard containment and focus return. Choose what happens on pending/error/success explicitly: an operation may close optimistically only when the product has a credible recovery path. A general confirmation example should not clear context merely because a callback was invoked.
