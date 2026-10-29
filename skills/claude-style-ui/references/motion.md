@@ -4,13 +4,15 @@ Motion supports focus, state, and spatial continuity. Use static UI for most rep
 
 ## Reference timing
 
-| Duration | Reference use | Local decision |
+| Duration | Current upstream CSS token | Local decision |
 | --- | --- | --- |
-| `60ms` | small feedback/color | Immediate pointer response; do not animate every property |
-| `120ms` | segmented selection | Small contained state changes |
-| `200ms` | ordinary transition/accordion | Default starting point |
-| `300ms` | drawer/detail pane | Larger spatial change, if useful |
-| `450ms` | large visual transition | Uncommon; avoid delaying frequent actions |
+| `60ms` | `--cds-dur-fast` | Immediate press/color response; do not animate every property |
+| `120ms` | `--cds-dur-snap` | Small contained selection changes |
+| `200ms` | `--cds-dur-base` | Ordinary transition/accordion starting point |
+| `300ms` | `--cds-dur-sheet` | Larger panel movement, if useful |
+| `450ms` | `--cds-dur-slow` | Optional press release/large transition; avoid delaying frequent actions |
+
+These durations also match the earlier Storybook reference. At upstream `c1f923a`, the five tokens are finally defined in `cds-theme.css`. The `.cds-btn-squish` recipe needs both `--cds-dur-fast` and `--cds-dur-slow`, plus `--cds-btn-spring`: copying the easing alone leaves its transition invalid. Map the whole dependency chain into project tokens and inspect the computed transition. Its sampled CSS `linear(...)` spring is different from constant-speed `linear`; feature-detect that function and provide a supported ease-out fallback when needed. Reduced motion still removes spatial press/release effects.
 
 Reference curves:
 
@@ -32,18 +34,18 @@ An accordion can use intrinsic-size/grid-row transitions when available, with an
 
 ## Optional spring references
 
-The inspected source includes these four presets. Use them only when a project already uses a spring system or the interaction warrants one; installing Motion/Framer Motion is not part of adopting this style.
+The inspected source includes these four named exports. Use them only when a project already uses a spring system or the interaction warrants one; installing Motion/Framer Motion is not part of adopting this style. The latest comments report client **2.42304.2** call sites, distinct from the historical v1/v2 manuals. This skill reviewed the community files, not that proprietary client bundle.
 
-| Source preset | Stiffness | Damping | Mass |
-| --- | --- | --- | --- |
-| Small button | `600` | `30` | `1` |
-| Card/popover | `320` | `28` | `1` |
-| Bouncy feedback | `380` | `18` | `1` |
-| Panel/drag | `1200` | `80` | `0.1` |
+| Actual export | Stiffness | Damping | Mass | Current upstream provenance/use |
+| --- | --- | --- | --- | --- |
+| `SPRING_BOUNCY` | `600` | `30` | `1` | Reported mic/voice-bar mount, width/padding and icon changes |
+| `SPRING_SNAPPY` | `320` | `28` | `1` | Reported drag-release rebound with release velocity |
+| `SPRING_GENTLE` | `380` | `18` | `1` | Community project's own bouncy preset; no claimed client call site |
+| `SPRING_HEAVY_SNAP` | `1200` | `80` | `0.1` | Reported file-viewer width open/close |
 
-At Open Claude UI commit `4045ce7`, the actual TS export names are respectively `SPRING_BOUNCY`, `SPRING_SNAPPY`, `SPRING_GENTLE`, and `SPRING_HEAVY_SNAP`. Some guide tables give different numbers/roles; recheck the actual file when adopting another revision. Use the implementation's numeric contract when adapting that file; do not combine a documentation name with a different row's parameters. The existing table remains the numeric reference for this skill, not a mandate to install Framer Motion.
+At Open Claude UI commit `c1f923a`, the numbers are unchanged, but the source corrects the earlier generic button/card/sidebar labels. In particular, do not describe `380/18` as extracted Claude physics, or `320/28` as a verified client popover entrance. The same file's `motionPopover` and `motionMessageFadeUp` still reuse `SPRING_SNAPPY`; those are example choices, not independent evidence of official call sites. Its newer report lists additional inline spring configurations without exporting them as presets; the four names are not a complete client inventory.
 
-The page's advertised settling/overshoot labels were not independently measured. Do not repeat those figures as guarantees, or mix physical spring parameters with duration/bounce parameterizations and claim they are equivalent.
+The page's advertised settling/overshoot labels were not independently measured. Do not repeat those figures as guarantees. A `duration: .32, bounce: .15` spring is not an equivalent spelling of `380/18`; retain the selected engine's parameterization rather than swapping between them based on a prose label.
 
 Direct manipulation such as a split handle should track the pointer immediately; animate a deliberate reset or panel transition only if it improves orientation. A 4 px drag threshold or 150 ms scroll cooldown is a starting point from a particular example, not a universal timing law. See [advanced interactions](advanced-interactions.md) for the cancel/resize/keyboard behavior that matters more than matching a spring constant.
 

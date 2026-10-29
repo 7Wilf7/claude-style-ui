@@ -2,7 +2,7 @@
 name: claude-style-ui
 description: "Build, restyle, or review local web interfaces in Claude's visual language when the user asks for Claude UI, Claude 风格, Open Claude UI, or the supplied Storybook/Figma reference. Covers layouts, themes, components, chat, restrained motion and optional advanced interaction recipes. Use for the requested visual direction, not for unrelated UI tasks or merely because a project uses a Claude API."
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
 ---
 
 # Claude Style UI
@@ -54,7 +54,7 @@ Component classes belong on descendants of the theme root, for example `<div dat
 
 The preview shows how assets fit together. Its local demo handlers are not production persistence, authentication, uploads, or model streaming. Implement those behaviors through the target project's existing services only when requested.
 
-Use upstream Open Claude UI as a source of reviewed recipes, not as an unconditional dependency. The reviewed snapshot now emits JavaScript/declarations and exposes CSS subpaths, but its root barrel still includes an Electron host module. CSS imports need no React runtime; the full stylesheet also includes global selectors and motion, so inspect and scope it before adoption. Keep the target project's existing libraries, accessible primitives and design-token namespace; select and adapt only what the actual feature needs. Community constants and reverse-engineering claims do not override host tokens or current project behavior.
+Use upstream Open Claude UI as a source of reviewed recipes, not as an unconditional dependency. The reviewed snapshot emits JavaScript/declarations and exposes CSS subpaths, but its root barrel still includes an Electron host module. CSS imports need no React runtime; the full stylesheet also includes global selectors and motion, so inspect and scope it before adoption. Follow the current [CSS selector/token contracts](references/open-claude-ui.md#current-css-contracts) when extracting scroll fades or press feedback; the README's older data-attribute example no longer activates the CSS-only fade. Keep the target project's existing libraries, accessible primitives and design-token namespace; select and adapt only what the actual feature needs. Community constants and reverse-engineering claims do not override host tokens or current project behavior.
 
 ## Verify the actual result
 

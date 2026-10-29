@@ -1,6 +1,6 @@
 # Optional compact desktop workbench
 
-Read when the requested screen is a compact agent/developer workbench, an effort selector or composer retry area. Source: [Open Claude UI `docs/v2` at `4045ce7`](https://github.com/Caho1/open-claude-ui/tree/4045ce76afdcb7dccef1b7e6417b04c4c6046e9c/docs/v2), reviewed 2026-10-20. Its report targets a claimed desktop `v2.37337.1`; that is the report's version boundary, not independently verified current Claude behavior. Styling a dashboard does not require adding agents, model controls, queues, native windows or execution environments.
+Read when the requested screen is a compact agent/developer workbench, an effort selector or composer retry area. Source: [Open Claude UI `docs/v2` at `c1f923a`](https://github.com/Caho1/open-claude-ui/tree/c1f923ae0051a871941b98a0e2e3183a545e6a85/docs/v2), delta reviewed 2026-10-29. Most of the report targets a claimed desktop `v2.37337.1`; its newer §4.4 separately reports spring observations from `2.42304.2`. Neither establishes independently verified current Claude behavior. See [motion](motion.md) for the corrected provenance and CSS duration dependencies. Density, effort and queue examples below are unchanged since the 2026-10-20 review. Styling a dashboard does not require adding agents, model controls, queues, native windows or execution environments.
 
 ## Select density deliberately
 
