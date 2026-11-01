@@ -1,6 +1,6 @@
 # Selected community interface patterns
 
-Read only for the requested feature. Reviewed 2026-10-29 (Asia/Shanghai); this is independently written behavioral synthesis, not bundled source code or acceptance of the authors' fidelity claims. The default Storybook profile and official MCP host integration remain unchanged.
+Read only for the requested feature. Reviewed 2026-10-29 (Asia/Shanghai), with mobile composer corrections reviewed 2026-11-01; this is independently written behavioral synthesis, not bundled source code or acceptance of the authors' fidelity claims. The default Storybook profile and official MCP host integration remain unchanged.
 
 ## Evidence map
 
@@ -9,6 +9,7 @@ Read only for the requested feature. Reviewed 2026-10-29 (Asia/Shanghai); this i
 | [imsai-sh/open-claude-design](https://github.com/imsai-sh/open-claude-design/tree/19b48b1096f97c96cc21f58b1af9c411da65b46f) | Community reconstruction of `claude.ai/design`; pre-alpha, Apache-2.0 | `packages/design-tokens/src/index.ts`; `apps/web/src/features/chat/ChatMsg.tsx`, `Composer.tsx`; `apps/web/src/routes/Workspace.tsx` |
 | [Damienchakma/Open-claude](https://github.com/Damienchakma/Open-claude/tree/9f37bbb8c8819e01481f5615f963d35da52d6cbf) | Claude-inspired chat implementation; MIT | `src/index.css`; `src/components/ThinkingDisplay.jsx`, `ArtifactPanel.jsx` |
 | [siteboon/claudecodeui](https://github.com/siteboon/claudecodeui/tree/c17c2f6d5f7e1e1d47fe37144ce0b2030002e331) | CloudCLI agent workbench; adjacent interaction reference, **not a Claude appearance specification**; AGPL-3.0-or-later with additional terms noted in README | `src/modules/chat/transcript/LazyMessageRow.tsx`; `hooks/useChatComposerState.ts`, `hooks/useChatSessionState.ts` under `src/modules/chat/` |
+| [CloudCLI mobile composer update](https://github.com/siteboon/claudecodeui/tree/13e9ef64977d909eaf881eb83fec250c679f3d5c) | Same project and license, not independent visual evidence | `src/modules/chat/hooks/useChatComposerState.ts:198–209,1374–1396`; `src/modules/chat/composer/TokenUsageSummary.tsx`; `src/modules/chat/tests/composerSoftKeyboardEnter.test.tsx`, `tokenUsageSummaryFormat.test.tsx` |
 
 The files were inspected statically. No new source applications, dependencies, model calls or native hosts were run. Links pin the evidence; paths are relative to each repository. Consult the actual license and notices before copying implementation. No code or assets from these projects are included in this skill.
 
@@ -33,6 +34,16 @@ Keep the target project's iframe isolation and validated host messaging. The sou
 Open Claude Design's `Composer.tsx:1–8` documents a multiline-first shortcut: Enter inserts a newline, Cmd/Ctrl+Enter sends. This is an optional convention for prompt/design editors, not a new default for existing chat products. Preserve the product's chosen convention and show a compact hint when needed. Every submit shortcut still respects IME composition. Local attachment previews should appear promptly, while upload/pending/error state and removability remain explicit; a thumbnail is not an uploaded-file receipt.
 
 CloudCLI's `useChatComposerState.ts:272–282` keys a draft to the selected session, using the project only before a session exists. Its queued operations retain the originating session separately from the currently displayed composer. For requested multi-conversation input, keep editor state and pending async work tied to stable conversation identity. On switching A→B, a late upload/send failure for A must not insert content into B, clear B's draft or attach A's queued card there. Preserve A's recoverable input under A's identity. Account/project/provider dimensions belong in that identity when the target system requires them; do not assume the source's session id is globally unique in a different product. Styling alone never enables durable storage or replay.
+
+## Mobile newlines and changing toolbar width
+
+CloudCLI's newer composer leaves plain Enter unhandled when `(pointer: coarse)` matches, retaining the textarea's newline and using the send button for submission. Its tests mock the media query; they do not establish real soft-keyboard behavior. The useful correction is to keep multiline entry possible on a phone where Shift+Enter is unavailable. Preserve the product's desktop convention, IME protection and explicit send action. A multiline-first mode or a clear user setting can provide that path; do not silently change unrelated forms.
+
+The source names its query helper `isSoftKeyboardEnvironment`, but pointer accuracy does not identify a keyboard or prove which input produced an event. [Media Queries Level 4, interaction media features](https://www.w3.org/TR/mediaqueries-4/#mf-interaction) explicitly separates pointing devices from keyboards. A tablet may pair a keyboard/mouse, and a touch laptop may use a virtual keyboard. Treat such queries as conservative defaults, keep an explicit input preference where needed, and verify physical and virtual keyboard paths separately. Preserve IME candidate confirmation before applying any send shortcut; do not adopt an unmeasured timing constant as a universal Safari fix.
+
+The same update's `TokenUsageSummary.tsx:10–30,50–65` removes a decorative icon on narrow layouts and promotes rounded counts at unit boundaries to avoid wider intermediate strings such as `10.0K` or `1000K`. For an existing toolbar that shows changing usage, test the actual formatted labels across rounding boundaries, localization and large values. Remove optional decoration or reflow secondary controls before shrinking essential touch targets, clipping values or hiding send/model actions. Tabular figures equalize digit widths, not the width of whole labels as digits or units change; a minimum width can itself crowd a narrow row. Retain an accessible name, units and access to the precise value when compacting a count. No formatter, breakpoint, model usage service or source component is bundled here.
+
+Forward-check the requested composer at phone and desktop widths: multiline entry without a physical Shift key; the established desktop shortcut; IME confirmation without sending; explicit send; and growing/localized counter text without obscured actions or page overflow. Emulation and mocked media queries do not establish Safari, a real input method or physical-device acceptance.
 
 ## Long history without scroll jumps
 

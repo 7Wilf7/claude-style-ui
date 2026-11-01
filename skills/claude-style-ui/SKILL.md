@@ -2,7 +2,7 @@
 name: claude-style-ui
 description: "Build, restyle, or review local web interfaces in Claude's visual language when the user asks for Claude UI, Claude 风格, Open Claude UI, or the supplied Storybook/Figma reference. Covers layouts, themes, components, chat, restrained motion and optional advanced interaction recipes. Use for the requested visual direction, not for unrelated UI tasks or merely because a project uses a Claude API."
 metadata:
-  version: "2.2.0"
+  version: "2.2.1"
 ---
 
 # Claude Style UI
@@ -29,7 +29,7 @@ For existing projects, keep the framework, navigation behavior, data flows, and 
 
 Read [motion](references/motion.md) for transitions, streaming, status indicators or gestures. Read [advanced interactions](references/advanced-interactions.md) for scroll following, resizable document panes, command/mention suggestions, or asynchronous confirmation. Read [Open Claude UI adoption](references/open-claude-ui.md) when choosing upstream CSS or React/Tailwind examples or checking their actual contracts. For a compact desktop workbench, model-effort controls or queued-message notices, read [desktop workbench patterns](references/desktop-workbench.md); the upstream v2 report is a separate optional direction, not a replacement for the default Storybook appearance. These are optional routes; a simple card restyle does not need the advanced helpers or the entire reference set.
 
-For grouped tool activity, artifact Preview/Source views, drafts across conversations or long transcript history, read [community interface patterns](references/community-patterns.md). It separates Claude chat/Design reconstructions from adjacent workbench ideas; none changes the default palette or adds product features on its own.
+For grouped tool activity, artifact Preview/Source views, drafts across conversations, long transcript history or mobile composer input/toolbar pitfalls, read [community interface patterns](references/community-patterns.md). It separates Claude chat/Design reconstructions from adjacent workbench ideas; none changes the default palette or adds product features on its own.
 
 ## Visual identity that should survive adaptation
 

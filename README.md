@@ -2,13 +2,13 @@
 
 A reusable Codex skill for Claude-inspired web interfaces: warm neutral surfaces, readable typography, light/dark themes, and thoughtful interaction patterns.
 
-一个可复用的 Claude 风格界面设计 skill。让 Codex 在现有项目里实现配色、排版、组件和交互，无需操作 Figma。当前版本：**2.2.0**。
+一个可复用的 Claude 风格界面设计 skill。让 Codex 在现有项目里实现配色、排版、组件和交互，无需操作 Figma。当前版本：**2.2.1**。
 
 ![Claude-inspired local interface preview](docs/preview.png)
 
 ## 下载与安装
 
-**[下载 v2.2.0 技能 ZIP](https://github.com/7Wilf7/claude-style-ui/releases/download/v2.2.0/claude-style-ui-v2.2.0.zip)** · [版本发布页](https://github.com/7Wilf7/claude-style-ui/releases/tag/v2.2.0)
+**[下载 v2.2.1 技能 ZIP](https://github.com/7Wilf7/claude-style-ui/releases/download/v2.2.1/claude-style-ui-v2.2.1.zip)** · [版本发布页](https://github.com/7Wilf7/claude-style-ui/releases/tag/v2.2.1)
 
 最方便的方式是在 Codex 中发送：
 
@@ -44,6 +44,7 @@ https://github.com/7Wilf7/claude-style-ui/tree/main/skills/claude-style-ui
 - **工作台变体**：可选紧凑/舒适密度、模型推理档位和输入框失败重试区域；说明展示组件与真实存储、发送服务的接入边界。
 - **CSS 采用指南**：核对上游纯 CSS 入口、全局选择器、主题和浏览器降级；保留项目现有技术栈。
 - **社区模式**：按需参考工具活动分组、Preview/Source 状态保留、跨会话草稿归属和长历史阅读锚点；区分 Claude 视觉参考与相邻产品的交互借鉴。
+- **手机输入纠偏**：保留不依赖实体 Shift 键的换行路径，区分指针能力与键盘类型，并检查用量数字变长、单位进位和本地化后的工具栏布局。
 - **实现指南**：按需查阅动效、中文输入法、命令/引用、异步草稿、弹窗焦点和实际 MCP App 适配。
 
 ## 离线预览
@@ -65,16 +66,21 @@ https://github.com/7Wilf7/claude-style-ui/tree/main/skills/claude-style-ui
 - [imsai-sh/open-claude-design](https://github.com/imsai-sh/open-claude-design/tree/19b48b1096f97c96cc21f58b1af9c411da65b46f)：Claude Design 社区复刻的工作区与消息层级。
 - [Damienchakma/Open-claude](https://github.com/Damienchakma/Open-claude/tree/9f37bbb8c8819e01481f5615f963d35da52d6cbf)：Claude-inspired 会话与 Artifact 视图。
 - [siteboon/claudecodeui](https://github.com/siteboon/claudecodeui/tree/c17c2f6d5f7e1e1d47fe37144ce0b2030002e331)：CloudCLI 的草稿和长历史交互，仅作相邻产品的行为参考。
+- [CloudCLI 手机输入修正](https://github.com/siteboon/claudecodeui/tree/13e9ef64977d909eaf881eb83fec250c679f3d5c)：输入换行和动态用量布局的行为参考，结合 [W3C 指针能力定义](https://www.w3.org/TR/mediaqueries-4/#mf-interaction)纠正键盘检测的证据边界；未复制代码。
 
 详细范围、来源区别和归属见 [sources.md](skills/claude-style-ui/references/sources.md)。上游 Open Claude UI 的 [MIT 版权与许可](skills/claude-style-ui/references/licenses/open-claude-ui-MIT.txt) 随技能保留。未打包 Anthropic 专有字体、标志或原始 Figma 文件；社区重建的代码与宣传不作为官方规格。
 
 ## 验证范围
 
+v2.2.1 修正手机 composer 的换行与动态工具栏指导。复核 CloudCLI 的八次提交差异、相关代码、测试与实际许可证，重查官方 MCP 设计指南及 OCU 当前源码；新发现的缺少许可、限制再分发或仅属工具工作流的项目未作为视觉规范吸收。技能格式、48 个相对引用、公开内容、许可证和 18 文件清单检查通过。独立的本地聊天输入请求在 Chrome 完成 15 项交互检查、96 组宽度/主题/语言/计数组合，实际检查截图；覆盖触屏换行、显式输入偏好、桌面快捷键、合成 IME 保护和失败恢复。
+
+此版本仅改文档，六份 CSS/JS/HTML 资产逐字节保持 v2.2.0 原样。未运行来源应用、来源测试、账户服务或模型调用；本地验证页与手机尺寸模拟不等于 Safari、真实手机、真实中文输入法或辅助技术验收。
+
 v2.2.0 增加多来源的条件式采用指南和定期维护流程；复核来源代码与许可证，保留固定提交、适用范围和已识别缺陷。技能格式、相对引用、文件一致性及独立前向推演作为本次验证；未运行新增来源的应用或依赖，未复制它们的代码或资产。原有 CSS/JS/HTML 文件保持不变。
 
 v2.1.1 更新上游 CSS 采用契约与动效来源说明：补充 `.scroll-fade-y/x` 的尺寸、溢出和降级要求，修正旧 data attribute 用法，记录颜色/时长令牌依赖，并区分客户端观测与社区自建弹簧参数。默认配色及 CSS/JS/HTML 资产保持原样。
 
-本次格式、相对链接、许可证和文件一致性检查通过，并完成独立审查。上游固定提交的构建、类型检查和令牌引用检查通过；本地 Chromium 验证了渐隐起点/中点/终点、短内容、明暗气泡及按钮回弹的计算样式。基础预览已检查 1440 像素浅色与 390 像素深色，无整页横向溢出。其他交互不以本次预览检查替代完整验收。
+v2.1.1 的历史格式、相对链接、许可证和文件一致性检查通过，并完成独立审查。上游固定提交的构建、类型检查和令牌引用检查通过；本地 Chromium 验证了渐隐起点/中点/终点、短内容、明暗气泡及按钮回弹的计算样式。基础预览已检查 1440 像素浅色与 390 像素深色，无整页横向溢出。其他交互不以该次预览检查替代完整验收。
 
 v2.0.0 的历史验证：已在独立 Chrome 中检查 1440、390、320 像素的浅色和深色布局，基础预览、15 项进阶交互及清理行为通过。必要输入边界继续保留至少 3:1 的已测对比度。下载包经过文件完整性和离线运行检查。
 
