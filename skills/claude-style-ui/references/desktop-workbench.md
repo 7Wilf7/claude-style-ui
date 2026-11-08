@@ -4,7 +4,7 @@ Read when the requested screen is a compact agent/developer workbench, an effort
 
 ## Select density deliberately
 
-The report proposes a flatter workbench: canvas `#fcfcfb` light / `#151515` dark, less rounded input, and compact/comfortable density. Keep the default warm Storybook treatment unless the user's reference or actual task calls for the workbench. The upstream distributed CSS still uses a 20 px composer; `data-density` alone does not apply the report's recipe to the bundled skill assets.
+The report proposes a flatter workbench: canvas `#fcfcfb` light / `#151515` dark, less rounded input, and compact/comfortable density. Keep the default warm Storybook treatment unless the user's reference or actual task calls for the workbench. **2026-11-08 correction:** upstream `be395eb` now supplies scaled density tokens and a root comfortable selector; its composer is no longer 20 px. The historical table below is not a current CSS contract. See [current scale and selector behavior](open-claude-ui.md#keep-source-profiles-distinct). `data-density` still does not implement density in the bundled skill assets.
 
 Nominal values from `docs/v2/03-架构重构与对比分析.md:81–110`:
 
