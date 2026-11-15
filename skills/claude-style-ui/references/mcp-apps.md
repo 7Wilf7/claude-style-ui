@@ -12,13 +12,22 @@ Host context can include safe-area insets, container size, and supported modes. 
 
 ## Choose the smallest useful display mode
 
-| Mode | Official guidance snapshot | Resulting design choice |
+| Presentation | Official guidance snapshot | Resulting design choice |
 | --- | --- | --- |
 | Inline card | Focused summary; roughly 4–5 data points, no more than 2 bottom actions | Complete one small task without app-shell navigation or nested vertical scrolling |
 | Inline carousel | About 3–8 comparable items, consistent cards, at most one CTA each | Show next-card peeking and usable horizontal swipe; preserve host scroll |
+| Side panel | Where available, a resizable area beside chat, down to about 320 px; reports `fullscreen` | Reflow for the measured container; a desktop host can still give the app a narrow panel |
 | Fullscreen | Analysis, document work, or complex content | Provide an explicit expand affordance; keep essential controls clear of the host composer/navigation |
 
 Inline height should fit actual content. On mobile, the conversation owns vertical pan gestures. If the task needs an independent long scrolling viewport, request a supported larger mode rather than trapping the user in a small nested scroller.
+
+### A display mode is not a layout width
+
+The [official display-mode contract](https://claude.com/docs/connectors/building/mcp-apps/display-modes) reports `fullscreen` for both the side panel and full screen. Do not invent a `sidebar` mode. Use `hostContext.containerDimensions` and update on `hostcontextchanged`; allow the initial size to be unmeasured. Inline supplies width/maxHeight, while fullscreen supplies width/height once measured. Keep safe-area padding on the conversation-facing edge, too.
+
+Offer expansion only when the host advertises it. Request it from a focused click/key handler. Compare the returned `mode` with the request: refusal can resolve with the existing mode. Preserve the usable current view; do not announce success or retry from a timer. A fullscreen request from an existing panel does not force a wider presentation. Availability varies; retain a working inline path where supported and keep sizing independent of panel access.
+
+Forward-check a narrow desktop panel, resizing without a mode change, delayed dimensions, and a refused request. Mock host events verify adaptation logic, not a working Claude integration.
 
 ## Divide interaction ownership
 

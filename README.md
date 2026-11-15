@@ -2,13 +2,13 @@
 
 A reusable Codex skill for Claude-inspired web interfaces: warm neutral surfaces, readable typography, light/dark themes, and thoughtful interaction patterns.
 
-一个可复用的 Claude 风格界面设计 skill。让 Codex 在现有项目里实现配色、排版、组件和交互，无需操作 Figma。当前版本：**2.2.2**。
+一个可复用的 Claude 风格界面设计 skill。让 Codex 在现有项目里实现配色、排版、组件和交互，无需操作 Figma。当前版本：**2.2.3**。
 
 ![Claude-inspired local interface preview](docs/preview.png)
 
 ## 下载与安装
 
-**[下载 v2.2.2 技能 ZIP](https://github.com/7Wilf7/claude-style-ui/releases/download/v2.2.2/claude-style-ui-v2.2.2.zip)** · [版本发布页](https://github.com/7Wilf7/claude-style-ui/releases/tag/v2.2.2)
+**[下载 v2.2.3 技能 ZIP](https://github.com/7Wilf7/claude-style-ui/releases/download/v2.2.3/claude-style-ui-v2.2.3.zip)** · [版本发布页](https://github.com/7Wilf7/claude-style-ui/releases/tag/v2.2.3)
 
 最方便的方式是在 Codex 中发送：
 
@@ -71,6 +71,10 @@ https://github.com/7Wilf7/claude-style-ui/tree/main/skills/claude-style-ui
 详细范围、来源区别和归属见 [sources.md](skills/claude-style-ui/references/sources.md)。上游 Open Claude UI 的 [MIT 版权与许可](skills/claude-style-ui/references/licenses/open-claude-ui-MIT.txt) 随技能保留。未打包 Anthropic 专有字体、标志或原始 Figma 文件；社区重建的代码与宣传不作为官方规格。
 
 ## 验证范围
+
+v2.2.3 补充实际 MCP App 的宿主契约：侧栏和全屏都可能报告 `fullscreen`，界面应按宿主实际容器尺寸及安全区重排；展开请求被拒绝时也可能正常返回，不能据此显示成功。复核官方设计指南与显示模式文档，并检查 OCU、既有视觉来源及新发现项目。此修正仅涉及文档，默认 Storybook 配色和六份 CSS/JS/HTML 资产保持不变。
+
+当前技能格式、46个相对引用（含锚点）、公开内容/许可证、18文件清单及 ZIP 字节核对通过。独立双语审阅请求完成15项 Node 模拟宿主行为检查，主代理复核实现并重跑通过；覆盖尺寸缺失、320→960像素同模式重排、安全区、能力变化、请求拒绝/异常和卸载。未渲染新页面或安装真实 SDK，未验证实际 Claude 宿主、Safari、实机、辅助技术或服务；上游运行证据沿用其原提交与日期。
 
 v2.2.2 修正 OCU 新版源码的采用说明：区分仍为20像素的本地 Storybook 输入框与上游按根字号缩放的密度令牌，避免把蓝色强调角色整体替换为陶土色；补充骨架占位与真实加载状态的边界，指出附件转场包装器缺少类型和选择器接线。固定检查 OCU `be395eb` 的实际 README、许可证及相关源码，复核官方资料并筛选新增社区实现；未复制第三方代码、字体、标志或二进制。
 

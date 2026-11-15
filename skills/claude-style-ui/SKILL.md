@@ -2,7 +2,7 @@
 name: claude-style-ui
 description: "Build, restyle, or review local web interfaces in Claude's visual language when the user asks for Claude UI, Claude 风格, Open Claude UI, or the supplied Storybook/Figma reference. Covers layouts, themes, components, chat, restrained motion and optional advanced interaction recipes. Use for the requested visual direction, not for unrelated UI tasks or merely because a project uses a Claude API."
 metadata:
-  version: "2.2.2"
+  version: "2.2.3"
 ---
 
 # Claude Style UI
