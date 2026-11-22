@@ -1,6 +1,6 @@
 # Selecting Open Claude UI recipes
 
-Reviewed snapshot: [Caho1/open-claude-ui at `be395eb4b783cad3148fd9a4ef7641a3d198dd52`](https://github.com/Caho1/open-claude-ui/tree/be395eb4b783cad3148fd9a4ef7641a3d198dd52), inspected 2026-11-08 (Asia/Shanghai). Changed runtime CSS, button/attachment components, exports, package configuration, README/license and documentation indexes were reviewed against `c1f923a`. New versioned forensic reports are community claims, not independently verified Anthropic specifications; their proprietary-client measurements were not reproduced. Unchanged component observations carry forward from the earlier review. Paths below are relative to the pinned repository. Inspect the relevant current file before adopting a later revision.
+Reviewed snapshot: [Caho1/open-claude-ui at `be395eb4b783cad3148fd9a4ef7641a3d198dd52`](https://github.com/Caho1/open-claude-ui/tree/be395eb4b783cad3148fd9a4ef7641a3d198dd52), inspected 2026-11-08 (Asia/Shanghai). Changed runtime CSS, button/attachment components, exports, package configuration, README/license and documentation indexes were reviewed against `c1f923a`. New versioned forensic reports are community claims, not independently verified Anthropic specifications; their proprietary-client measurements were not reproduced. Unchanged component observations carry forward from the earlier review. Paths below are relative to the pinned repository. The [later stylesheet check](#partial-size-token-overrides) documents additions at `beb521e`. Inspect the relevant current file before adopting a later revision.
 
 ## Pick by task
 
@@ -49,6 +49,12 @@ The registered fade properties use `inherits:false`. Set custom `--cds-scroll-fa
 The neutral aliases complete `--cds-bg-user-message → --cds-bg-neutral → --cds-alpha-1`. The earlier browser probe at `c1f923a` computed black 5% in light and white 5% in dark. Current alpha values instead use relative `hsl(from …)` expressions driven by the theme's neutral ramp; preserve that chain and feature-detect relative colors before extraction. A `var()` fallback alone cannot repair an unsupported color expression in a defined custom property. Supply supported declarations/tokens with an `@supports` branch when the target browser needs one. `--cds-fill-accent` remains blue `#2a78d6`; text/border accent and focus now also use blue roles, while brand actions retain terracotta. Map by semantic use rather than globally recoloring accents.
 
 All five `--cds-dur-*` tokens are now defined. `.cds-btn-squish` computed to a `transform 0.45s linear(...)` release in the probe. Extract its press/release durations together with the sampled easing; see [motion](motion.md). The CSS-mode segmented indicator now references `--cds-dur-snap` / `--cds-ease-snap`; preserve those definitions when adapting its Tailwind utilities. That source edit is not proof of a generated Tailwind build or an accessible segmented-control implementation.
+
+### Partial size token overrides
+
+At [`beb521e`](https://github.com/Caho1/open-claude-ui/tree/beb521e940db340a5f36a8bf6f34d21528adc37a), the package still points both CSS entry paths to `code-examples/cds-theme.css`, directly or through `cds-pure.css`. The new section in that stylesheet defines `--cds-theme-api: 1` and provides a partial size variant. On a descendant of `.cds-root`, `data-size="xs"` resolves the control height while its padding and type aliases point to undefined variables. Radius and icon aliases also fail under compact density and resolve under root-level comfortable density. `data-step="1"` changes a smaller set of tokens and leaves the base padding/type aliases intact.
+
+If adapting these variants, define or map the complete set of aliases your component uses, or keep the base values for missing roles. Check resolved styles of the controls in each theme and supported density, including a usable touch target. A Chrome probe on the raw stylesheet confirmed these alias outcomes in both themes and both densities. The 5.x report and token count claims describe different scopes from this package check. No client or upstream package build was run.
 
 ## Keep source profiles distinct
 

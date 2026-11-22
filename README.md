@@ -2,13 +2,13 @@
 
 A reusable Codex skill for Claude-inspired web interfaces: warm neutral surfaces, readable typography, light/dark themes, and thoughtful interaction patterns.
 
-一个可复用的 Claude 风格界面设计 skill。让 Codex 在现有项目里实现配色、排版、组件和交互，无需操作 Figma。当前版本：**2.2.3**。
+一个可复用的 Claude 风格界面设计 skill。让 Codex 在现有项目里实现配色、排版、组件和交互，无需操作 Figma。当前版本：**2.2.4**。
 
 ![Claude-inspired local interface preview](docs/preview.png)
 
 ## 下载与安装
 
-**[下载 v2.2.3 技能 ZIP](https://github.com/7Wilf7/claude-style-ui/releases/download/v2.2.3/claude-style-ui-v2.2.3.zip)** · [版本发布页](https://github.com/7Wilf7/claude-style-ui/releases/tag/v2.2.3)
+**[下载 v2.2.4 技能 ZIP](https://github.com/7Wilf7/claude-style-ui/releases/download/v2.2.4/claude-style-ui-v2.2.4.zip)** · [版本发布页](https://github.com/7Wilf7/claude-style-ui/releases/tag/v2.2.4)
 
 最方便的方式是在 Codex 中发送：
 
@@ -62,7 +62,7 @@ https://github.com/7Wilf7/claude-style-ui/tree/main/skills/claude-style-ui
 
 - Anthropic 的 [MCP Apps for Claude Figma kit](https://www.figma.com/community/file/1597641111449594397/mcp-apps-for-claude) 与公开设计指南。
 - [Claude Storybook 社区参考](https://claude-storybook.bystanderss.chatgpt.site/)。
-- [Caho1/open-claude-ui](https://github.com/Caho1/open-claude-ui/tree/be395eb4b783cad3148fd9a4ef7641a3d198dd52)，固定检查提交 `be395eb4b783cad3148fd9a4ef7641a3d198dd52`。
+- [Caho1/open-claude-ui](https://github.com/Caho1/open-claude-ui/tree/be395eb4b783cad3148fd9a4ef7641a3d198dd52)，另在 [`beb521e`](https://github.com/Caho1/open-claude-ui/tree/beb521e940db340a5f36a8bf6f34d21528adc37a) 核对新增尺寸令牌。
 - [imsai-sh/open-claude-design](https://github.com/imsai-sh/open-claude-design/tree/19b48b1096f97c96cc21f58b1af9c411da65b46f)：Claude Design 社区复刻的工作区与消息层级。
 - [Damienchakma/Open-claude](https://github.com/Damienchakma/Open-claude/tree/9f37bbb8c8819e01481f5615f963d35da52d6cbf)：Claude-inspired 会话与 Artifact 视图。
 - [siteboon/claudecodeui](https://github.com/siteboon/claudecodeui/tree/c17c2f6d5f7e1e1d47fe37144ce0b2030002e331)：CloudCLI 的草稿和长历史交互，仅作相邻产品的行为参考。
@@ -71,6 +71,10 @@ https://github.com/7Wilf7/claude-style-ui/tree/main/skills/claude-style-ui
 详细范围、来源区别和归属见 [sources.md](skills/claude-style-ui/references/sources.md)。上游 Open Claude UI 的 [MIT 版权与许可](skills/claude-style-ui/references/licenses/open-claude-ui-MIT.txt) 随技能保留。未打包 Anthropic 专有字体、标志或原始 Figma 文件；社区重建的代码与宣传不作为官方规格。
 
 ## 验证范围
+
+v2.2.4 补充聊天输入框的两项指导。批量选取、拖放或粘贴时，保留符合规则的文件，逐项说明其余文件被拒的原因。运行中的回答支持 Escape 停止时，按键优先交给打开的菜单、对话框、当前编辑或输入法处理。上游 OCU 的 XS 尺寸也有采用修正。Chrome 在明暗主题与紧凑、舒适密度四种组合中确认，部分 XS 间距和字号别名无法解析。发布内容仅改文档，六份 CSS/JS/HTML 与 v2.2.3 逐字节一致。
+
+独立的双语输入框验证在 Chrome 的 390 和 1366 像素、明暗主题四种组合中各通过 20 项检查，覆盖文件选择、拖放、粘贴、同名附件、部分拒收、草稿保留、Escape 和焦点回归。技能格式、54 个相对引用（含锚点）、公开内容与许可检查及 18 文件的 ZIP 比对通过。文件和输入法事件使用模拟数据。来源应用、Safari、真实设备、真实输入法、辅助技术和服务未验证。
 
 v2.2.3 补充实际 MCP App 的宿主契约：侧栏和全屏都可能报告 `fullscreen`，界面应按宿主实际容器尺寸及安全区重排；展开请求被拒绝时也可能正常返回，不能据此显示成功。复核官方设计指南与显示模式文档，并检查 OCU、既有视觉来源及新发现项目。此修正仅涉及文档，默认 Storybook 配色和六份 CSS/JS/HTML 资产保持不变。
 

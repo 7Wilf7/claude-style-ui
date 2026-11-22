@@ -1,6 +1,6 @@
 # Selected community interface patterns
 
-Read only for the requested feature. Reviewed 2026-10-29 (Asia/Shanghai), with mobile composer corrections reviewed 2026-11-01; this is independently written behavioral synthesis, not bundled source code or acceptance of the authors' fidelity claims. The default Storybook profile and official MCP host integration remain unchanged.
+Read only for the requested feature. Observations below come from the pinned implementations. Apply the interaction guidance independently within the target project.
 
 ## Evidence map
 
@@ -19,7 +19,7 @@ Open Claude Design's `ChatMsg.tsx:68–155` uses a small filled user block, comp
 
 When the requested assistant interface shows many operations, group contiguous routine activity with a clear summary and expandable details. Keep a pending decision, actionable failure or cancellation visible at the level where the user needs to act; do not bury it in a collapsed successful group. Let real controller state determine count, progress and outcome. Preserve the user's expansion choice and expose the disclosure with the project's accessible primitive.
 
-`ThinkingDisplay.jsx:16–73` in Open-claude illustrates automatic opening during incoming content, bottom-aware following and distinct character/token metrics. It does **not** automatically collapse when streaming ends; implement any completion-compaction policy deliberately, preserving an explicit open choice and focus. Do not invent reasoning content or model measurements. Its component returns before later hooks on an empty state and uses a fixed panel id, so importing it unchanged is not a verified React/accessibility solution. Keep existing [scroll and disclosure contracts](advanced-interactions.md) authoritative.
+`ThinkingDisplay.jsx:16–73` in Open-claude illustrates automatic opening during incoming content, bottom-aware following and distinct character/token metrics. The pinned version keeps the panel open when streaming ends. [A later revision](https://github.com/Damienchakma/Open-claude/blob/13200a12e73488dab1eda7db8fd6f9dc6a6d16af/src/components/ThinkingDisplay.jsx) moves the early return after the hooks and auto-collapses on completion. It retains a fixed panel ID. Design any completion compaction to preserve the user’s explicit open choice and focus, and use a distinct ID per disclosure. Display only real operation events and measurements. Keep existing [scroll and disclosure contracts](advanced-interactions.md) authoritative.
 
 ## Artifact views should preserve the user's work
 
@@ -27,13 +27,25 @@ Open-claude's `ArtifactPanel.jsx:85–224` separates Preview from Source and ada
 
 For a requested artifact feature, model artifact identity/version separately from its selected view. Switching Preview/Source for the same trusted instance should retain useful preview state, source selection, unsaved edits and a return path. An explicit artifact revision or reset may deliberately rebuild it. Remove inactive views from keyboard/accessibility navigation; restore focus to a meaningful visible control. Keeping a frame mounted does not mean approving background timers, audio, network traffic or later privileged actions. Pause or dispose those resources according to the feature's lifecycle, and destroy the instance on project/account change.
 
-Keep the target project's iframe isolation and validated host messaging. The source's permissive sandbox and CDN runtime are not a recipe for this skill. The Open-claude copy handler also marks success without awaiting clipboard acceptance. Use actual promise results and preserve useful failure feedback. A visual preview change neither saves nor publishes the artifact.
+Keep the target project's iframe isolation and validated host messaging. The source's permissive sandbox and CDN runtime are not a recipe for this skill. The originally pinned Open-claude copy handler reported success early. [The current handler](https://github.com/Damienchakma/Open-claude/blob/13200a12e73488dab1eda7db8fd6f9dc6a6d16af/src/components/ArtifactPanel.jsx) awaits clipboard acceptance and silently catches rejection. Use the actual result and give the user a recovery path when copy fails. A visual preview change neither saves nor publishes the artifact.
 
 ## Multiline input and draft ownership
 
 Open Claude Design's `Composer.tsx:1–8` documents a multiline-first shortcut: Enter inserts a newline, Cmd/Ctrl+Enter sends. This is an optional convention for prompt/design editors, not a new default for existing chat products. Preserve the product's chosen convention and show a compact hint when needed. Every submit shortcut still respects IME composition. Local attachment previews should appear promptly, while upload/pending/error state and removability remain explicit; a thumbnail is not an uploaded-file receipt.
 
 CloudCLI's `useChatComposerState.ts:272–282` keys a draft to the selected session, using the project only before a session exists. Its queued operations retain the originating session separately from the currently displayed composer. For requested multi-conversation input, keep editor state and pending async work tied to stable conversation identity. On switching A→B, a late upload/send failure for A must not insert content into B, clear B's draft or attach A's queued card there. Preserve A's recoverable input under A's identity. Account/project/provider dimensions belong in that identity when the target system requires them; do not assume the source's session id is globally unique in a different product. Styling alone never enables durable storage or replay.
+
+## Partial attachment rejection
+
+For composers that accept multiple files, account for each candidate in a mixed batch. Route picker, drop and paste outcomes through the same composer validation, including rejections returned by the file input library. Where the product allows partial acceptance, retain eligible files and the draft, then show which files were refused, why, and how to recover. Include already attached files when applying count limits. Show rejection feedback near the attachment list, where it is available even when a refused file has no chip. Keep upload progress and server-side rejection distinct from a local eligibility check.
+
+Check a mixed batch with only one slot left, including two files with the same name. Use separate candidate identities so a rejected file cannot put an error on another file's chip. Match the product's configured limits and language. A fresh attempt or dismiss action can clear the intake notice while leaving accepted files and the draft intact. If a library rejects the whole batch by design, explain that outcome explicitly.
+
+## Escape during a running turn
+
+When the product already lets Escape stop generation, give open menus, dialogs, active edits and IME composition the first chance to handle it. One press should dismiss the active layer or stop the turn according to focus and context. A document capture handler fires before the focused control, so a local propagation guard cannot undo an abort that already fired. Reuse the project's shortcut or overlay ownership mechanism and keep an explicit Stop control. Check Escape from a sidebar rename, a composer menu and an active dialog while a turn is running, then verify the existing stop behavior in its intended context.
+
+CloudCLI's [attachment intake change](https://github.com/siteboon/claudecodeui/commit/d17b8a97d2ba66daa6a97e21b464f3cf5aab2506) and [Escape ownership change](https://github.com/siteboon/claudecodeui/commit/e3980d60082c047292497ace1aceec3905f8389c) are adjacent workbench evidence. At [b695914](https://github.com/siteboon/claudecodeui/tree/b6959148ec006f258d737e72bb630ff2e5e84672), inspect `src/modules/chat/` paths `hooks/useChatComposerState.ts`, `composer/AttachmentRejectionNotice.tsx`, `hooks/useEscapeToAbortSession.ts` and the corresponding `tests/attachmentRejections.test.tsx` and `tests/escapeToAbortSession.test.tsx`. The attachment notice is independent of accepted chips. The Escape hook checks focused fields and open layers during capture, and has no IME check. Its selectors, intake limits and event routing are project-specific. The repository uses AGPL-3.0-or-later with additional terms. This guidance draws on a static review of the code and tests.
 
 ## Mobile newlines and changing toolbar width
 
